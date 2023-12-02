@@ -11,7 +11,7 @@ import LoginPage from "./pages/LoginPage";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-/* function Tabs() {
+function Tabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -35,7 +35,7 @@ const Tab = createBottomTabNavigator();
       />
     </Tab.Navigator>
   );
-} */
+}
 
 export default function App() {
   return (
@@ -43,8 +43,8 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Stack.Navigator>
-          {/* <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
-          <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} /> */}
+          <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
+          <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
