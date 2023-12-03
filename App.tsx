@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-native-safe-area-context";
+import { useKeyboard } from "@react-native-community/hooks";
 
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
@@ -12,18 +14,25 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Tabs() {
+  const keyboard = useKeyboard();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
+          margin: 20,
           height: 50,
+          marginBottom: keyboard.keyboardShown ? 0 : 5,
+          borderRadius: 15,
           paddingHorizontal: 5,
           paddingTop: 5,
           backgroundColor: "black",
           position: "absolute",
           borderTopWidth: 0,
           navigationBarColor: "gold",
+          elevation: 1,
         },
         navigationBarColor: "gold",
       })}
