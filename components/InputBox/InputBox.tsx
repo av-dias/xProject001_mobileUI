@@ -1,15 +1,15 @@
-import { View } from "react-native";
+import { View, TextInput } from "react-native";
 import { ReactNode } from "react";
 
 import IconContainer from "../iconContainer";
 
-type PropsWithChildren = { icon: any };
+type PropsWithChildren = { icon: ReactNode; placeholder: string };
 
 const InputBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 15 }}>
+    <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 15, flexDirection: "row" }}>
       <IconContainer>{props.icon}</IconContainer>
-      <View></View>
+      <TextInput placeholder={props.placeholder}></TextInput>
     </View>
   );
 };
