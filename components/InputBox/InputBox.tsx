@@ -9,7 +9,7 @@ const InputBox: React.FC<PropsWithChildren> = (props) => {
   return (
     <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 15, flexDirection: "row" }}>
       <IconContainer>{props.icon}</IconContainer>
-      <TextInput placeholder={props.placeholder}></TextInput>
+      <TextInput style={{ flex: 3 }} placeholder={props.placeholder}></TextInput>
     </View>
   );
 };

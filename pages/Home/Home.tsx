@@ -9,6 +9,10 @@ import InputBox from "../../components/InputBox";
 import ContentBox from "../../components/contentBox";
 import ExpansionBar from "../../components/expansionBar";
 
+let Image1 = require("../../assets/images/image1.jpg");
+let Image2 = require("../../assets/images/image2.jpg");
+let Image3 = require("../../assets/images/image3.jpg");
+
 type PropsWithChildren = {
   navigation: any;
 };
@@ -30,12 +34,12 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         </View>
 
         <ScrollView style={{ backgroundColor: "transparent", gap: 20 }} contentContainerStyle={{ gap: 20 }}>
-          <ContentBox>Hi</ContentBox>
-          <ContentBox>Hi</ContentBox>
-          <ContentBox>Hi</ContentBox>
-          <ContentBox>Hi</ContentBox>
-          <ContentBox>Hi</ContentBox>
-          <ContentBox>Hi</ContentBox>
+          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
         </ScrollView>
       </UsableScreen>
     </SafeAreaView>
