@@ -13,7 +13,6 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
-        <Text>Login Page</Text>
         <View style={{ flex: 1, backgroundColor: "transparent", justifyContent: "center" }}>
           <View style={{ width: 200, height: 200, backgroundColor: "gray", alignSelf: "center", marginBottom: 300 }}></View>
           <View style={{ flexDirection: "row" }}>
