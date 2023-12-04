@@ -24,19 +24,22 @@ const ContentBox: React.FC<Props> = (props) => {
       <View style={{ flex: 4 }}>
         <ImageContainer imageSrc={props.imageSrc} />
       </View>
-      <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
-        <View style={{ flex: 5 }}>
-          <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={"Bowling City Colombo"} />
-          <View style={{ flex: 1, flexDirection: "row", gap: 10 }}>
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.location} />
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.price + "€"} />
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.timetable} />
+      <View style={{ flex: 1, flexDirection: "row", padding: 5 }}>
+        <View style={{ flex: 7 }}>
+          <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={"Bowling City Colombo"} fontWeight="bold" />
+          <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", paddingRight: 5 }}>
+            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.location} fontWeight="normal" />
+            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.price + "€"} fontWeight="normal" />
+            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.timetable} fontWeight="normal" />
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <IconContainer>
-            <AntDesign name="hearto" size={30} color={color.light.red} />
+            <AntDesign name="hearto" size={40} color={color.light.red} />
           </IconContainer>
+          <View style={{ position: "absolute" }}>
+            <Text style={{ fontSize: 12 }}>{props.rate}</Text>
+          </View>
         </View>
       </View>
     </View>

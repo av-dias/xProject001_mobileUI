@@ -34,12 +34,12 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         </View>
 
         <ScrollView style={{ backgroundColor: "transparent", gap: 20 }} contentContainerStyle={{ gap: 20 }}>
-          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
-          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
-          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
-          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
-          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
-          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"Lisbon"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"1.3 km"} price={10} timetable={"10:00 - 20:00"} rate={8.6} />
+          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"1.8 km"} price={10} timetable={"10:00 - 20:00"} rate={8.1} />
+          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"2.1 km"} price={10} timetable={"10:00 - 20:00"} rate={8.6} />
+          <ContentBox imageSrc={Image1} title={"Lisbon"} location={"2.3 km"} price={10} timetable={"10:00 - 20:00"} rate={10} />
+          <ContentBox imageSrc={Image2} title={"Lisbon"} location={"4.4 km"} price={10} timetable={"10:00 - 20:00"} rate={7.2} />
+          <ContentBox imageSrc={Image3} title={"Lisbon"} location={"5.1 km"} price={10} timetable={"10:00 - 20:00"} rate={5.4} />
         </ScrollView>
       </UsableScreen>
     </SafeAreaView>

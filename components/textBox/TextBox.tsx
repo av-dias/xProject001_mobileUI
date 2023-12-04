@@ -3,13 +3,17 @@ import { ReactNode } from "react";
 
 import IconContainer from "../iconContainer";
 
-type PropsWithChildren = { icon: ReactNode; text: string | number };
+type PropsWithChildren = {
+  icon: ReactNode;
+  text: string | number;
+  fontWeight: "normal" | "bold";
+};
 
 const TextBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ flex: 1, backgroundColor: "transparent", borderRadius: 15, flexDirection: "row", alignContent: "flex-start" }}>
+    <View style={{ flexDirection: "row", borderRadius: 15 }}>
       <IconContainer>{props.icon}</IconContainer>
-      <Text style={{ flex: 3 }}>{props.text}</Text>
+      <Text style={{ fontWeight: props.fontWeight }}>{props.text}</Text>
     </View>
   );
 };
