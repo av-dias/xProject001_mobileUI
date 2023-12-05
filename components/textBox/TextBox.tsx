@@ -6,14 +6,17 @@ import IconContainer from "../iconContainer";
 type PropsWithChildren = {
   icon: ReactNode;
   text: string | number;
-  fontWeight: "normal" | "bold";
+  fontWeight?: "normal" | "bold";
+  fontSize?: number | 10;
 };
 
 const TextBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ flexDirection: "row", borderRadius: 15 }}>
+    <View style={{ flexDirection: "row", borderRadius: 15, gap: 5 }}>
       <IconContainer>{props.icon}</IconContainer>
-      <Text style={{ fontWeight: props.fontWeight }}>{props.text}</Text>
+      <View style={{ justifyContent: "center" }}>
+        <Text style={{ fontWeight: props.fontWeight, fontSize: props.fontSize }}>{props.text}</Text>
+      </View>
     </View>
   );
 };

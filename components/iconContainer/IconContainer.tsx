@@ -6,7 +6,7 @@ type PropsWithChildren = {
 };
 
 const IconContainer: React.FC<PropsWithChildren> = (props) => {
-  return <View style={{ justifyContent: "center", alignItems: "center", paddingHorizontal: 5 }}>{props.children}</View>;
+  return <View style={{ justifyContent: "center", alignItems: "center" }}>{props.children}</View>;
 };
 
 export default IconContainer;
