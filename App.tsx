@@ -9,6 +9,7 @@ import { useKeyboard } from "@react-native-community/hooks";
 
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+import ActivityDetails from "./pages/ActivityDetails";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +43,7 @@ function Tabs() {
         component={Home}
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
+      <Tab.Screen name="ActivityDetails" component={ActivityDetails} options={{ headerShown: false, tabBarButton: () => null }} />
     </Tab.Navigator>
   );
 }
