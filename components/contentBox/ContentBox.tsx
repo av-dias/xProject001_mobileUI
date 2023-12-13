@@ -7,6 +7,7 @@ import IconContainer from "../iconContainer";
 import TextBox from "../textBox";
 
 import color from "../../constants/color";
+import { heartIcon } from "../../constants/icons";
 
 type ImageSourcePropType = React.ComponentProps<typeof Image>["source"];
 
@@ -38,9 +39,7 @@ const ContentBox: React.FC<Props> = (props) => {
           </View>
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <IconContainer>
-            <AntDesign name="hearto" size={40} color={color.light.red} />
-          </IconContainer>
+          <IconContainer>{heartIcon(40)}</IconContainer>
           <View style={{ position: "absolute" }}>
             <Text style={{ fontSize: 12 }}>{props.rate}</Text>
           </View>
