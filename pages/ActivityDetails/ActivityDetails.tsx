@@ -1,14 +1,17 @@
 import { View, Text, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import { RouteProp } from "@react-navigation/native";
+import { useState, useEffect } from "react";
 
 import UsableScreen from "../../components/usableScreen";
 import ImageContainer from "../../components/imageContainer";
 import TextBox from "../../components/textBox";
 import IconContainer from "../../components/iconContainer";
+import PreviewComponent from "../../components/reviewComponent";
+import ReviewBox from "../../components/reviewBox";
 
-import color from "../../constants/color";
+import { heartIcon } from "../../constants/icons";
+import { reviewListHandler, ReviewType, availableListHandler, AvailableType } from "./handler";
 
 type ActivityItemData = {
   imageSrc: any;
@@ -26,6 +29,14 @@ type PropsWithChildren = {
 };
 
 const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
+  const [reviewList, setReviewList] = useState<ReviewType[]>([]);
+  const [availableList, setAvailableList] = useState<AvailableType[]>([]);
+
+  useEffect(() => {
+    setReviewList(reviewListHandler);
+    setAvailableList(availableListHandler);
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
@@ -47,9 +58,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   </View>
                   <View>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
-                      <IconContainer>
-                        <AntDesign name="hearto" size={30} color={color.light.red} />
-                      </IconContainer>
+                      <IconContainer>{heartIcon(30)}</IconContainer>
                       <View style={{ position: "absolute" }}>
                         <Text style={{ fontSize: 12 }}>{props.route.params.rate}</Text>
                       </View>
@@ -70,74 +79,30 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={"Earn 100 Points on reservation"} />
                 </View>
 
-                <View style={{ backgroundColor: "lightgray", borderRadius: 10, paddingVertical: 5, paddingHorizontal: 10, gap: 10 }}>
-                  <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
-                    <Text>Available</Text>
-                    <Text>More {">"} </Text>
-                  </View>
+                <PreviewComponent title={"Available"} onPress={() => alert("Not Implemented Yet")}>
                   {/* Needs to be a flatList */}
-                  <ScrollView horizontal contentContainerStyle={{ gap: 20 }}>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 20 }}>
+                    {availableList.map((available) => {
+                      return (
+                        <View
+                          key={available.id}
+                          style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
+                        >
+                          <Text>{available.title}</Text>
+                        </View>
+                      );
+                    })}
                   </ScrollView>
-                </View>
+                </PreviewComponent>
 
-                <View style={{ backgroundColor: "lightgray", borderRadius: 10, paddingVertical: 5, paddingHorizontal: 10, gap: 10 }}>
-                  <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
-                    <Text>Reviews</Text>
+                <PreviewComponent title={"Review"} onPress={() => alert("Not Implemented Yet")}>
+                  {/* Needs to be like top 5 */}
+                  <View style={{ gap: 20 }}>
+                    {reviewList.map((review) => {
+                      return <ReviewBox key={review.id} title={review.title} text={review.text} rate={review.rate} />;
+                    })}
                   </View>
-                  {/* Needs to be a flatList */}
-                  <ScrollView contentContainerStyle={{ gap: 20 }}>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                    <View
-                      style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Text>X</Text>
-                    </View>
-                  </ScrollView>
-                </View>
+                </PreviewComponent>
               </View>
             </ScrollView>
           </View>
