@@ -1,12 +1,14 @@
-import { View, ScrollView, FlatList, ListRenderItemInfo } from "react-native";
+import { View, ScrollView, FlatList, Modal, Alert, Text } from "react-native";
 import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AntDesign, Feather, Entypo, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Feather, Entypo } from "@expo/vector-icons";
+import color from "../../constants/color";
 
 import UsableScreen from "../../components/usableScreen";
 import FilterBar from "../../components/filterBar";
 import InputBox from "../../components/InputBox";
 import ExpansionBar from "../../components/expansionBar";
+import CustomPressable from "../../components/customPressable";
 
 import { activityListHandler, ActivityType, renderActivityItem } from "./handler";
 import { iconsfilter } from "../../constants/icons";
@@ -26,6 +28,32 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
+        <Modal
+          transparent={true}
+          style={{ alignItems: "center", justifyContent: "center" }}
+          animationType="slide"
+          visible={true}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View style={{ width: "100%", height: "100%", justifyContent: "center", alignItems: "center", backgroundColor: color.light.grayBlur }}>
+            <View style={{ height: 200, width: "80%", backgroundColor: "gray", borderRadius: 20 }}>
+              <View style={{ width: "100%", justifyContent: "center", alignItems: "center", padding: 20, gap: 20 }}>
+                <Text style={{ fontSize: 25, fontWeight: "bold", textAlign: "center" }}>Sign In to continue using the app.</Text>
+                <View style={{ width: "50%" }}>
+                  <CustomPressable
+                    color={color.light.primary}
+                    text="Start"
+                    onPress={() => {
+                      navigation.navigate("Login");
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={{ flex: 1 }}>
             <FilterBar>

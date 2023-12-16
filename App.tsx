@@ -8,6 +8,7 @@ import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-nati
 import { useKeyboard } from "@react-native-community/hooks";
 
 import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ActivityDetails from "./pages/ActivityDetails";
 
@@ -54,6 +55,7 @@ export default function App() {
       <NavigationContainer>
         <StatusBar style="auto" />
         <Stack.Navigator>
+          <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false, orientation: "portrait" }} />
           <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
           <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} />
         </Stack.Navigator>
