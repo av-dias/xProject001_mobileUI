@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ActivityDetails from "./pages/ActivityDetails";
+import MapPage from "./pages/MapPage";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -45,6 +46,11 @@ function Tabs() {
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
       <Tab.Screen name="ActivityDetails" component={ActivityDetails} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen
+        name="Map"
+        component={MapPage}
+        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+      />
     </Tab.Navigator>
   );
 }
