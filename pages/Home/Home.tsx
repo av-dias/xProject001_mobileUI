@@ -10,7 +10,9 @@ import InputBox from "../../components/InputBox";
 import ExpansionBar from "../../components/expansionBar";
 import CustomPressable from "../../components/customPressable";
 
-import { activityListHandler, ActivityType, renderActivityItem } from "./handler";
+import { activityListHandler } from "./handler";
+import { renderActivityItem } from "./handler";
+import { ActivityType } from "../../constants/models";
 import { iconsfilter } from "../../constants/icons";
 
 type PropsWithChildren = {
