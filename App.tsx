@@ -12,6 +12,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ActivityDetails from "./pages/ActivityDetails";
 import MapPage from "./pages/MapPage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,14 +59,16 @@ function Tabs() {
 export default function App() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <Stack.Navigator>
-          <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false, orientation: "portrait" }} />
-          <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
-          <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <Stack.Navigator>
+            <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false, orientation: "portrait" }} />
+            <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
+            <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }

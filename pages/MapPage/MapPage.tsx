@@ -4,6 +4,8 @@ import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 
 import { markerHandler } from "./handler";
+import BottomSheet from "../../components/bottomSheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 type PropsWithChildren = {
   navigation: any;
@@ -32,6 +34,7 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             );
           })}
         </MapView>
+        <BottomSheet />
       </View>
     </SafeAreaView>
   );
