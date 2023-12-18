@@ -11,9 +11,11 @@ export type ReviewType = {
 };
 
 export type ActivityType = {
+  id: string;
   imageSrc: any;
   marker: any;
   title: string;
+  type: string;
   location: string;
   price: number;
   timetable: string;
