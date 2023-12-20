@@ -34,7 +34,13 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
         >
           {markerHandler.map((markerItem) => {
             return (
-              <Marker key={markerItem.id} coordinate={markerItem.coordinates} title={markerItem.title} description={markerItem.type}>
+              <Marker
+                key={markerItem.id}
+                coordinate={markerItem.coordinates}
+                title={markerItem.title}
+                description={markerItem.type}
+                onPress={() => navigation.navigate("ActivityDetails", markerItem)}
+              >
                 <View style={{ width: 50, height: 50, borderRadius: 100, overflow: "hidden" }}>
                   <Image style={{ flex: 1, width: "auto", height: "auto" }} source={markerItem.imageSrc}></Image>
                 </View>

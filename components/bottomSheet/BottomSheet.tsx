@@ -23,7 +23,7 @@ const BottomSheet: React.FC<Props> = (props) => {
     .onEnd(() => {
       if (translateY.value < -SCREEN_HEIGHT / 2) {
         translateY.value = withTiming(MAX_TRANSLATE_Y);
-      } else if (translateY.value > -SCREEN_HEIGHT / 4) {
+      } else if (translateY.value > -SCREEN_HEIGHT / 3) {
         translateY.value = withTiming(MIN_TRANSLATE_Y);
       }
     });
