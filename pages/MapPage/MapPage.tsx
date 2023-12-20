@@ -1,17 +1,25 @@
-import { View, Text, Image, Modal } from "react-native";
+import { View, Image } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 
-import { markerHandler } from "./handler";
+import { activityListHandler, markerHandler, renderActivityItem } from "./handler";
 import BottomSheet from "../../components/bottomSheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
+import { ActivityType } from "../../constants/models";
 
 type PropsWithChildren = {
   navigation: any;
 };
 
 const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
+  const [activityList, setActivityList] = useState<ActivityType[]>([]);
+
+  useEffect(() => {
+    setActivityList(activityListHandler);
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -34,7 +42,16 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             );
           })}
         </MapView>
-        <BottomSheet />
+        <BottomSheet>
+          <View style={{ flex: 1, padding: 20, paddingTop: 40 }}>
+            <FlatList
+              ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+              data={activityList}
+              renderItem={(activity) => renderActivityItem(activity, navigation)}
+              contentContainerStyle={{}}
+            />
+          </View>
+        </BottomSheet>
       </View>
     </SafeAreaView>
   );
