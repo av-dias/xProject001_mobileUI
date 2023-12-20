@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { ReactNode } from "react";
 import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
@@ -8,6 +8,9 @@ import InputBox from "../../components/InputBox";
 
 import { getFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
+import TextBox from "../../components/textBox";
+
+import { loginIcon } from "../../constants/icons";
 
 type PropsWithChildren = {
   navigation: any;
@@ -26,6 +29,15 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
+        <View style={{ alignItems: "flex-end" }}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <TextBox text={"Sign In"} icon={loginIcon(20)} iconDirection="right"></TextBox>
+          </Pressable>
+        </View>
         <View style={{ flex: 1, gap: 50 }}>
           <View style={{ flex: 1, gap: 20 }}>
             <View style={{ padding: 20, alignItems: "center" }}>
