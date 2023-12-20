@@ -35,7 +35,7 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
               navigation.navigate("Login");
             }}
           >
-            <TextBox text={"Sign In"} icon={loginIcon(20)} iconDirection="right"></TextBox>
+            <TextBox text={"Sign In"} icon={loginIcon(20)} iconPosition="right"></TextBox>
           </Pressable>
         </View>
         <View style={{ flex: 1, gap: 50 }}>
