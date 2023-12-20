@@ -5,6 +5,9 @@ import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-nati
 import UsableScreen from "../../components/usableScreen";
 import CustomPressable from "../../components/customPressable";
 
+import { saveToStorage } from "../../functions/localStorage";
+import storage from "../../constants/storage";
+
 type PropsWithChildren = {
   navigation: any;
 };
@@ -28,6 +31,7 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             <View style={{ flex: 1, paddingHorizontal: 20 }}>
               <CustomPressable
                 onPress={() => {
+                  saveToStorage(storage.email, "email");
                   navigation.navigate("Tabs");
                 }}
                 color="orange"

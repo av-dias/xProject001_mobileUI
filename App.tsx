@@ -12,6 +12,8 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import ActivityDetails from "./pages/ActivityDetails";
 import MapPage from "./pages/MapPage";
+import Profile from "./pages/Profile";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +52,11 @@ function Tabs() {
       <Tab.Screen
         name="Map"
         component={MapPage}
+        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
     </Tab.Navigator>

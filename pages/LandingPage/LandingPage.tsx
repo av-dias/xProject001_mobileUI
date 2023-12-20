@@ -6,11 +6,23 @@ import { FontAwesome } from "@expo/vector-icons";
 import UsableScreen from "../../components/usableScreen";
 import InputBox from "../../components/InputBox";
 
+import { getFromStorage } from "../../functions/localStorage";
+import storage from "../../constants/storage";
+
 type PropsWithChildren = {
   navigation: any;
 };
 
+const userHandler = async (navigation: any) => {
+  let email = await getFromStorage(storage.email);
+  if (email && email != "") {
+    navigation.navigate("Home");
+  }
+};
+
 const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
+  userHandler(navigation);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
