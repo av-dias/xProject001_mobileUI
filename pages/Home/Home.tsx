@@ -14,48 +14,60 @@ import { activityListHandler } from "./handler";
 import { renderActivityItem } from "./handler";
 import { ActivityType } from "../../constants/models";
 import { iconsfilter } from "../../constants/icons";
+import { getFromStorage } from "../../functions/localStorage";
+import storage from "../../constants/storage";
 
 type PropsWithChildren = {
   navigation: any;
 };
 
+const checkUser = async () => {};
+
 const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [showIconFilter, setShowIconFilter] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([]);
 
   useEffect(() => {
+    async function checkUser() {
+      let email = await getFromStorage(storage.email);
+      if (email == "") setModalVisible(true);
+    }
     setActivityList(activityListHandler);
+    checkUser();
   }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
-        <Modal
-          transparent={true}
-          style={{ alignItems: "center", justifyContent: "center" }}
-          animationType="slide"
-          visible={true}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
-        >
-          <View style={{ width: "100%", height: "100%", justifyContent: "center", alignItems: "center", backgroundColor: color.light.grayBlur }}>
-            <View style={{ height: 200, width: "80%", backgroundColor: "gray", borderRadius: 20 }}>
-              <View style={{ width: "100%", justifyContent: "center", alignItems: "center", padding: 20, gap: 20 }}>
-                <Text style={{ fontSize: 25, fontWeight: "bold", textAlign: "center" }}>Sign In to continue using the app.</Text>
-                <View style={{ width: "50%" }}>
-                  <CustomPressable
-                    color={color.light.primary}
-                    text="Start"
-                    onPress={() => {
-                      navigation.navigate("Login");
-                    }}
-                  />
+        {modalVisible && (
+          <Modal
+            transparent={true}
+            style={{ alignItems: "center", justifyContent: "center" }}
+            animationType="slide"
+            visible={true}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View style={{ width: "100%", height: "100%", justifyContent: "center", alignItems: "center", backgroundColor: color.light.grayBlur }}>
+              <View style={{ height: 200, width: "80%", backgroundColor: "gray", borderRadius: 20 }}>
+                <View style={{ width: "100%", justifyContent: "center", alignItems: "center", padding: 20, gap: 20 }}>
+                  <Text style={{ fontSize: 25, fontWeight: "bold", textAlign: "center" }}>Sign In to continue using the app.</Text>
+                  <View style={{ width: "50%" }}>
+                    <CustomPressable
+                      color={color.light.primary}
+                      text="Start"
+                      onPress={() => {
+                        navigation.navigate("Login");
+                      }}
+                    />
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        )}
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={{ flex: 1 }}>
             <FilterBar>
