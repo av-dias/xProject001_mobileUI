@@ -11,7 +11,8 @@ import PreviewComponent from "../../components/reviewComponent";
 import ReviewBox from "../../components/reviewBox";
 
 import { heartIcon } from "../../constants/icons";
-import { reviewListHandler, ReviewType, availableListHandler, AvailableType } from "./handler";
+import { reviewListHandler, availableListHandler } from "./handler";
+import { ReviewType, AvailableType } from "../../constants/models";
 
 type ActivityItemData = {
   imageSrc: any;
