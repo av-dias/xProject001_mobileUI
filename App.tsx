@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import ActivityDetails from "./pages/ActivityDetails";
 import MapPage from "./pages/MapPage";
 import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -52,6 +53,11 @@ function Tabs() {
       <Tab.Screen
         name="Map"
         component={MapPage}
+        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={Favorites}
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
       <Tab.Screen
