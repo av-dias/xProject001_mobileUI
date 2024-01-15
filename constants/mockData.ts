@@ -1,12 +1,12 @@
 import { ActivityType, ReviewType, AvailableType } from "./models";
 import key from "./key";
 
-let Image1 = require("../assets/images/image1.jpg");
-let Image2 = require("../assets/images/image2.jpg");
-let Image3 = require("../assets/images/image3.jpg");
-let Image1Small = require("../assets/images/image1-small.jpg");
-let Image2Small = require("../assets/images/image2-small.jpg");
-let Image3Small = require("../assets/images/image3-small.jpg");
+let Image1 = require("../assets/image1.png");
+let Image2 = require("../assets/image2.png");
+let Image3 = require("../assets/image3.png");
+let Image1Small = require("../assets/image1-small.png");
+let Image2Small = require("../assets/image2-small.png");
+let Image3Small = require("../assets/image3-small.png");
 
 export const activityListHandlerMock: ActivityType[] = [
   {
