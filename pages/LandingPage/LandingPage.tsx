@@ -19,7 +19,7 @@ type PropsWithChildren = {
 const userHandler = async (navigation: any) => {
   let email = await getFromStorage(storage.email);
   if (email && email != "") {
-    navigation.navigate("Home");
+    navigation.navigate("Tabs");
   }
 };
 
