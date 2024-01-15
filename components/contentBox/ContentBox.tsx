@@ -3,10 +3,11 @@ import { ReactNode } from "react";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 
 import ImageContainer from "../imageContainer";
-import IconContainer from "../iconContainer";
 import TextBox from "../textBox";
 
+import color from "../../constants/color";
 import { heartIcon } from "../../constants/icons";
+import IconContainer from "../iconContainer";
 
 type ImageSourcePropType = React.ComponentProps<typeof Image>["source"];
 
@@ -23,27 +24,69 @@ type Props = {
 const ContentBox: React.FC<Props> = (props) => {
   return (
     <View style={{ width: "100%", height: 205, backgroundColor: "gray", borderRadius: 20 }}>
-      <View style={{ flex: 4 }}>
+      <View style={{ flex: 1 }}>
         <Pressable onPress={props.navigation}>
           <ImageContainer imageSrc={props.imageSrc} />
+          <View style={{ position: "absolute", padding: 10, width: "100%", height: "100%", justifyContent: "space-between" }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                <TextBox text={props.title}></TextBox>
+              </View>
+              <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                <TextBox text={props.timetable}></TextBox>
+              </View>
+            </View>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                  <TextBox text={props.location}></TextBox>
+                </View>
+                <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                  <TextBox text={props.price + "€"}></TextBox>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              borderRadius: 20,
+              alignContent: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View style={{}}>
+              <IconContainer>{heartIcon(30)}</IconContainer>
+            </View>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              width: 50,
+              height: 50,
+              borderRadius: 20,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View style={{ borderRadius: 10 }}>
+              <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+            </View>
+          </View>
         </Pressable>
       </View>
-      <View style={{ flex: 1, flexDirection: "row", padding: 5 }}>
-        <View style={{ flex: 7 }}>
-          <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.title} fontWeight="bold" />
-          <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", paddingRight: 5 }}>
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.location} />
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.price + "€"} />
-            <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.timetable} />
-          </View>
-        </View>
+      {/* <View style={{ flex: 1, flexDirection: "row", padding: 5 }}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <IconContainer>{heartIcon(25)}</IconContainer>
           <View style={{ position: "absolute" }}>
             <Text style={{ fontSize: 12 }}>{props.rate}</Text>
           </View>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
