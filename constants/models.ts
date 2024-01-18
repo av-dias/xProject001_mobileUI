@@ -28,3 +28,9 @@ export type Coordinate = {
   latitude: number;
   longitude: number;
 };
+
+export type FavoriteType = {
+  id: String;
+  name: String;
+  activityList: ActivityType[] | null;
+};

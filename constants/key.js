@@ -3,4 +3,5 @@ export default key = {
   availableItem: "AI",
   iconfilter: "IF",
   activityType: "AT",
+  favoriteType: "FT",
 };
