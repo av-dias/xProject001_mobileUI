@@ -2,6 +2,8 @@ import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../constants/models";
 import ContentBox from "../../components/contentBox";
 import { activityListHandlerMock } from "../../constants/mockData";
+import { addToStorage } from "../../functions/localStorage";
+import storage from "../../constants/storage";
 
 const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation: any) => (
   <ContentBox
@@ -12,6 +14,10 @@ const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation
     timetable={render.item.timetable}
     rate={render.item.rate}
     navigation={() => navigation.navigate("ActivityDetails", render.item)}
+    onFavorite={async () => {
+      await addToStorage(storage.favorite, render.item);
+      console.log("Added to Favorite");
+    }}
   />
 );
 

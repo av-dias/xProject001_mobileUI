@@ -19,6 +19,7 @@ type Props = {
   rate: number;
   imageSrc: ImageSourcePropType;
   navigation: any;
+  onFavorite?: any;
 };
 
 const ContentBox: React.FC<Props> = (props) => {
@@ -61,32 +62,26 @@ const ContentBox: React.FC<Props> = (props) => {
               <IconContainer>{heartIcon(30)}</IconContainer>
             </View>
           </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              right: 5,
-              width: 50,
-              height: 50,
-              borderRadius: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View style={{ borderRadius: 10 }}>
-              <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+          <Pressable style={{ zIndex: 1 }} onPress={props.onFavorite}>
+            <View
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 5,
+                width: 50,
+                height: 50,
+                borderRadius: 20,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View style={{ borderRadius: 10 }}>
+                <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+              </View>
             </View>
-          </View>
+          </Pressable>
         </Pressable>
       </View>
-      {/* <View style={{ flex: 1, flexDirection: "row", padding: 5 }}>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <IconContainer>{heartIcon(25)}</IconContainer>
-          <View style={{ position: "absolute" }}>
-            <Text style={{ fontSize: 12 }}>{props.rate}</Text>
-          </View>
-        </View>
-      </View> */}
     </View>
   );
 };

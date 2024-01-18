@@ -5,14 +5,32 @@ export async function saveToStorage(key: string, value: string) {
   await SecureStore.setItemAsync(key, value);
 }
 
+export async function addToStorage(key: string, value: any) {
+  let currentValueString = await getFromStorage(key);
+  let newValue = [value];
+  if (currentValueString && currentValueString != "") {
+    let currentValueJson = JSON.parse(currentValueString);
+    newValue = [...currentValueJson, value];
+  }
+
+  await SecureStore.setItemAsync(key, JSON.stringify(newValue));
+}
+
 export async function getFromStorage(key: string) {
   let result = await SecureStore.getItemAsync(key);
-  //console.log(`%csecureStorage: %c${result}`, "color:#bada55", "color:#bada55");
   return result;
 }
 
 export async function clearStorage() {
   Object.keys(storage).forEach(async (key) => {
     await saveToStorage(key, "");
+  });
+}
+
+export async function clearValueStorage() {
+  Object.keys(storage).forEach(async (key) => {
+    if (key != storage.email) {
+      await saveToStorage(key, "");
+    }
   });
 }

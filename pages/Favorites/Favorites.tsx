@@ -1,22 +1,38 @@
 import { View, ScrollView, FlatList, Modal, Alert, Text } from "react-native";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
 
-import { FavoriteType } from "../../constants/models";
+import { FavoriteType, ActivityType } from "../../constants/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
+import { getFromStorage } from "../../functions/localStorage";
+import storage from "../../constants/storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 type PropsWithChildren = {
   navigation: any;
 };
 
-const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
+const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [favoriteList, setFavoriteList] = useState<FavoriteType[]>([]);
+  const [favoriteActivityList, setActivityFavoriteList] = useState<ActivityType[] | null>(null);
 
-  useEffect(() => {
-    setFavoriteList(favoriteListHandler);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      async function getFavorites() {
+        setFavoriteList(favoriteListHandler);
+        let favoriteList = await getFromStorage(storage.favorite);
+
+        if (favoriteList && favoriteList != "") {
+          setActivityFavoriteList(JSON.parse(favoriteList));
+        } else {
+          setActivityFavoriteList(null);
+        }
+      }
+      getFavorites();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -36,7 +52,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
             }}
             ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
             data={favoriteList}
-            renderItem={(activity) => renderFavoriteItem(activity, navigation)}
+            renderItem={(activity) => renderFavoriteItem(activity, navigation, favoriteActivityList)}
           />
         </View>
       </UsableScreen>
@@ -44,4 +60,4 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default Favorites;
