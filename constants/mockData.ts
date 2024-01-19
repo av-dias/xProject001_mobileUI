@@ -21,6 +21,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 8.6,
     address: "Rua dos Colombos",
     coordinates: { latitude: 38.753418, longitude: -9.188391 },
+    favorite: false,
   },
   {
     id: key.activityType + "2",
@@ -34,6 +35,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 8.1,
     address: "Rua dos Lisboas",
     coordinates: { latitude: 38.763419, longitude: -9.188392 },
+    favorite: false,
   },
   {
     id: key.activityType + "3",
@@ -47,6 +49,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 8.6,
     address: "Rua dos Golfs",
     coordinates: { latitude: 38.75342, longitude: -9.198391 },
+    favorite: false,
   },
   {
     id: key.activityType + "4",
@@ -60,6 +63,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 10,
     address: "Rua do Belem",
     coordinates: { latitude: 38.753418, longitude: -9.178391 },
+    favorite: false,
   },
   {
     id: key.activityType + "5",
@@ -73,6 +77,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 7.2,
     address: "Rua dos Escapes",
     coordinates: { latitude: 38.743418, longitude: -9.188391 },
+    favorite: false,
   },
   {
     id: key.activityType + "6",
@@ -86,6 +91,7 @@ export const activityListHandlerMock: ActivityType[] = [
     rate: 5.4,
     address: "Rua dos Golfs",
     coordinates: { latitude: 38.763418, longitude: -9.178391 },
+    favorite: false,
   },
 ];
 

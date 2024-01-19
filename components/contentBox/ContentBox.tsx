@@ -6,8 +6,9 @@ import ImageContainer from "../imageContainer";
 import TextBox from "../textBox";
 
 import color from "../../constants/color";
-import { heartIcon } from "../../constants/icons";
+import { heartIcon, fullHeartIcon } from "../../constants/icons";
 import IconContainer from "../iconContainer";
+import { ActivityType } from "../../constants/models";
 
 type ImageSourcePropType = React.ComponentProps<typeof Image>["source"];
 
@@ -20,6 +21,8 @@ type Props = {
   imageSrc: ImageSourcePropType;
   navigation: any;
   onFavorite?: any;
+  favorite: boolean;
+  onUnFavorite?: any;
 };
 
 const ContentBox: React.FC<Props> = (props) => {
@@ -48,38 +51,73 @@ const ContentBox: React.FC<Props> = (props) => {
               </View>
             </View>
           </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              right: 5,
-              borderRadius: 20,
-              alignContent: "center",
-              justifyContent: "center",
-            }}
-          >
-            <View style={{}}>
-              <IconContainer>{heartIcon(30)}</IconContainer>
-            </View>
-          </View>
-          <Pressable style={{ zIndex: 1 }} onPress={props.onFavorite}>
-            <View
-              style={{
-                position: "absolute",
-                bottom: 0,
-                right: 5,
-                width: 50,
-                height: 50,
-                borderRadius: 20,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <View style={{ borderRadius: 10 }}>
-                <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+          {!props.favorite ? (
+            <Pressable style={{ zIndex: 1 }} onPress={props.onFavorite}>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 5,
+                  borderRadius: 20,
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{}}>
+                  <IconContainer>{heartIcon(30)}</IconContainer>
+                </View>
               </View>
-            </View>
-          </Pressable>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 5,
+                  width: 50,
+                  height: 50,
+                  borderRadius: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ borderRadius: 10 }}>
+                  <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+                </View>
+              </View>
+            </Pressable>
+          ) : (
+            <Pressable style={{ zIndex: 1 }} onPress={props.onUnFavorite}>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 5,
+                  borderRadius: 20,
+                  alignContent: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{}}>
+                  <IconContainer>{fullHeartIcon(30)}</IconContainer>
+                </View>
+              </View>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 5,
+                  width: 50,
+                  height: 50,
+                  borderRadius: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View style={{ borderRadius: 10 }}>
+                  <Text style={{ fontSize: 12, color: "black" }}>{props.rate}</Text>
+                </View>
+              </View>
+            </Pressable>
+          )}
         </Pressable>
       </View>
     </View>

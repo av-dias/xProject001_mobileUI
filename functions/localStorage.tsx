@@ -16,6 +16,16 @@ export async function addToStorage(key: string, value: any) {
   await SecureStore.setItemAsync(key, JSON.stringify(newValue));
 }
 
+export async function removeFromStorage(key: string, id: string) {
+  let currentValueString = await getFromStorage(key);
+  if (!currentValueString) return;
+
+  let currentValueJson = JSON.parse(currentValueString);
+  currentValueJson = currentValueJson.filter((value: { id: string }) => value.id != id);
+
+  await SecureStore.setItemAsync(key, JSON.stringify(currentValueJson));
+}
+
 export async function getFromStorage(key: string) {
   let result = await SecureStore.getItemAsync(key);
   return result;

@@ -11,10 +11,12 @@ import ExpansionBar from "../../components/expansionBar";
 import CustomPressable from "../../components/customPressable";
 
 import { renderActivityItem, activityListHandler } from "./handler";
-import { ActivityType } from "../../constants/models";
+import { ActivityType, Coordinate } from "../../constants/models";
 import { iconsfilter } from "../../constants/icons";
 import { getFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
+import React from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 type PropsWithChildren = {
   navigation: any;
@@ -25,14 +27,60 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([]);
 
-  useEffect(() => {
-    async function checkUser() {
-      let email = await getFromStorage(storage.email);
-      if (email == "") setModalVisible(true);
-    }
-    setActivityList(activityListHandler);
-    checkUser();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      async function checkUser() {
+        let email = await getFromStorage(storage.email);
+        if (email == "") setModalVisible(true);
+      }
+      async function loadFavorites() {
+        let tmpFavoriteList = await getFromStorage(storage.favorite);
+        if (tmpFavoriteList) {
+          let favorites = JSON.parse(tmpFavoriteList);
+          setActivityList((prev) => {
+            {
+              favorites.forEach((fav: ActivityType) => {
+                let itemIndex = Number(fav.id.replace(/^\D+/g, ""));
+                prev.splice(itemIndex - 1, 1, fav);
+              });
+
+              return prev;
+            }
+          });
+          console.log("Updating favorite list...");
+        }
+      }
+      checkUser();
+      setActivityList([...activityListHandler]);
+      loadFavorites();
+      console.log("Favorites loaded...");
+    }, [])
+  );
+
+  /* useFocusEffect(
+    React.useCallback(() => {
+      async function updateActivityList() {
+        if (favoriteList && favoriteList.length > 0) {
+          let tmpActivityList: ActivityType[] = activityList;
+          console.log(favoriteList);
+          favoriteList.forEach((item: ActivityType) => {
+            let itemIndex = Number(item.id.replace(/^\D+/g, ""));
+            tmpActivityList.splice(itemIndex - 1, 1, item);
+          });
+          console.log(tmpActivityList);
+          setActivityList(tmpActivityList);
+          console.log("Updating activity list...");
+        } else {
+          console.log(favoriteList);
+          console.log(activityListHandler);
+          setActivityList(activityListHandler.slice());
+          console.log("Reset activity list...");
+        }
+      }
+      updateActivityList();
+    }, [activityList])
+  );
+ */
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -104,7 +152,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         <FlatList
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
           data={activityList}
-          renderItem={(activity) => renderActivityItem(activity, navigation)}
+          renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList)}
         />
       </UsableScreen>
     </SafeAreaView>

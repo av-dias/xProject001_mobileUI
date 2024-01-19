@@ -15,5 +15,6 @@ const iconsfilter = [
 ];
 
 const heartIcon = (size = 40) => <AntDesign name="hearto" size={size} color={color.light.red} />;
+const fullHeartIcon = (size = 40) => <AntDesign name="heart" size={size} color={color.light.red} />;
 const loginIcon = (size = 40) => <AntDesign name="login" size={size} color={"black"} />;
-export { iconsfilter, heartIcon, loginIcon };
+export { iconsfilter, heartIcon, fullHeartIcon, loginIcon };

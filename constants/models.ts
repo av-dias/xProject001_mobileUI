@@ -22,6 +22,7 @@ export type ActivityType = {
   rate: number;
   address: string;
   coordinates: Coordinate;
+  favorite: boolean;
 };
 
 export type Coordinate = {

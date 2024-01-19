@@ -15,19 +15,19 @@ type PropsWithChildren = {
 };
 
 const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
-  const [favoriteList, setFavoriteList] = useState<FavoriteType[]>([]);
-  const [favoriteActivityList, setActivityFavoriteList] = useState<ActivityType[] | null>(null);
+  const [favoriteFolders, setFavoriteFolders] = useState<FavoriteType[]>([]);
+  const [favoriteList, setFavoriteList] = useState<ActivityType[] | null>(null);
 
   useFocusEffect(
     React.useCallback(() => {
       async function getFavorites() {
-        setFavoriteList(favoriteListHandler);
+        setFavoriteFolders(favoriteListHandler);
         let favoriteList = await getFromStorage(storage.favorite);
 
         if (favoriteList && favoriteList != "") {
-          setActivityFavoriteList(JSON.parse(favoriteList));
+          setFavoriteList(JSON.parse(favoriteList));
         } else {
-          setActivityFavoriteList(null);
+          setFavoriteList(null);
         }
       }
       getFavorites();
@@ -51,8 +51,8 @@ const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
               flex: 1,
             }}
             ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
-            data={favoriteList}
-            renderItem={(activity) => renderFavoriteItem(activity, navigation, favoriteActivityList)}
+            data={favoriteFolders}
+            renderItem={(activity) => renderFavoriteItem(activity, navigation, favoriteList)}
           />
         </View>
       </UsableScreen>
