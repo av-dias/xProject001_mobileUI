@@ -16,6 +16,8 @@ import Profile from "./pages/Profile";
 import Favorites from "./pages/Favorites";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import color from "./constants/color";
+import FavoritesDetails from "./pages/FavoritesDetails";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,7 +37,7 @@ function Tabs() {
           borderRadius: 15,
           paddingHorizontal: 5,
           paddingTop: 5,
-          backgroundColor: "black",
+          backgroundColor: color.light.navBarBlur,
           position: "absolute",
           borderTopWidth: 0,
           navigationBarColor: "gold",
@@ -50,16 +52,19 @@ function Tabs() {
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
       <Tab.Screen name="ActivityDetails" component={ActivityDetails} options={{ headerShown: false, tabBarButton: () => null }} />
-      <Tab.Screen
-        name="Map"
-        component={MapPage}
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
-      />
+      {
+        <Tab.Screen
+          name="Map"
+          component={MapPage}
+          options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+        />
+      }
       <Tab.Screen
         name="Favorites"
         component={Favorites}
         options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
       />
+      <Tab.Screen name="FavoritesDetails" component={FavoritesDetails} options={{ headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen
         name="Profile"
         component={Profile}

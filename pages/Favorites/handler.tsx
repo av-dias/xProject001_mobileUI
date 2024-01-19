@@ -12,7 +12,7 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
     <Pressable
       style={{ width: "100%", aspectRatio: 1 }}
       onPress={() => {
-        alert("Not implemented yet.");
+        navigation.navigate("FavoritesDetails", favoriteActivityList);
       }}
     >
       <View

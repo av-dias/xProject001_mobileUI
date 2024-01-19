@@ -25,7 +25,7 @@ type PropsWithChildren = {
 const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [showIconFilter, setShowIconFilter] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [activityList, setActivityList] = useState<ActivityType[]>([]);
+  const [activityList, setActivityList] = useState<ActivityType[]>([...activityListHandler]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -37,13 +37,16 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         let tmpFavoriteList = await getFromStorage(storage.favorite);
         if (tmpFavoriteList) {
           let favorites = JSON.parse(tmpFavoriteList);
-          setActivityList((prev) => {
+          setActivityList((lastValue) => {
             {
+              let prev = [...lastValue];
+
+              prev = prev.map((item) => ({ ...item, favorite: false }));
+
               favorites.forEach((fav: ActivityType) => {
                 let itemIndex = Number(fav.id.replace(/^\D+/g, ""));
                 prev.splice(itemIndex - 1, 1, fav);
               });
-
               return prev;
             }
           });
@@ -56,31 +59,6 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
       console.log("Favorites loaded...");
     }, [])
   );
-
-  /* useFocusEffect(
-    React.useCallback(() => {
-      async function updateActivityList() {
-        if (favoriteList && favoriteList.length > 0) {
-          let tmpActivityList: ActivityType[] = activityList;
-          console.log(favoriteList);
-          favoriteList.forEach((item: ActivityType) => {
-            let itemIndex = Number(item.id.replace(/^\D+/g, ""));
-            tmpActivityList.splice(itemIndex - 1, 1, item);
-          });
-          console.log(tmpActivityList);
-          setActivityList(tmpActivityList);
-          console.log("Updating activity list...");
-        } else {
-          console.log(favoriteList);
-          console.log(activityListHandler);
-          setActivityList(activityListHandler.slice());
-          console.log("Reset activity list...");
-        }
-      }
-      updateActivityList();
-    }, [activityList])
-  );
- */
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
