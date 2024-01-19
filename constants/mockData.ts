@@ -8,6 +8,13 @@ let Image1Small = require("../assets/image1-small.png");
 let Image2Small = require("../assets/image2-small.png");
 let Image3Small = require("../assets/image3-small.png");
 
+let Image4 = require("../assets/image4.png");
+let Image5 = require("../assets/image5.png");
+let Image6 = require("../assets/image6.png");
+let Image4Small = require("../assets/image4-small.png");
+let Image5Small = require("../assets/image5-small.png");
+let Image6Small = require("../assets/image6-small.png");
+
 export const activityListHandlerMock: ActivityType[] = [
   {
     id: key.activityType + "1",
@@ -53,8 +60,8 @@ export const activityListHandlerMock: ActivityType[] = [
   },
   {
     id: key.activityType + "4",
-    imageSrc: Image1,
-    marker: Image1Small,
+    imageSrc: Image4,
+    marker: Image4Small,
     title: "Bowling City Belem",
     type: "Group",
     location: "2.3 km",
@@ -67,8 +74,8 @@ export const activityListHandlerMock: ActivityType[] = [
   },
   {
     id: key.activityType + "5",
-    imageSrc: Image2,
-    marker: Image2Small,
+    imageSrc: Image5,
+    marker: Image5Small,
     title: "Escape Belem",
     type: "Group",
     location: "4.4 km",
@@ -81,8 +88,8 @@ export const activityListHandlerMock: ActivityType[] = [
   },
   {
     id: key.activityType + "6",
-    imageSrc: Image3,
-    marker: Image3Small,
+    imageSrc: Image6,
+    marker: Image6Small,
     title: "Golf in Belem",
     type: "Outdoor",
     location: "5.1 km",

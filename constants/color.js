@@ -3,6 +3,7 @@ export default color = {
     red: "#E34444",
     primary: "#FFCC80",
     grayBlur: "rgba(217, 217, 217, 0.5)",
+    navBarBlur: "rgba(0, 0, 0, 0.9)",
   },
   dark: { red: "#E34444" },
 };

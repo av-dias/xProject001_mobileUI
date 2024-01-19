@@ -85,7 +85,10 @@ const ContentBox: React.FC<Props> = (props) => {
               </View>
             </Pressable>
           ) : (
-            <Pressable style={{ zIndex: 1 }} onPress={props.onUnFavorite}>
+            <Pressable
+              style={{ zIndex: 1 }}
+              onPress={props.onUnFavorite}
+            >
               <View
                 style={{
                   position: "absolute",
