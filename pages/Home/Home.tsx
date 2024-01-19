@@ -40,13 +40,20 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           setActivityList((lastValue) => {
             {
               let prev = [...lastValue];
-
-              prev = prev.map((item) => ({ ...item, favorite: false }));
+              let listIndex: string[] = [];
 
               favorites.forEach((fav: ActivityType) => {
-                let itemIndex = Number(fav.id.replace(/^\D+/g, ""));
-                prev.splice(itemIndex - 1, 1, fav);
+                listIndex.push(fav.id);
               });
+
+              prev = prev.map((item) => {
+                if (listIndex.includes(item.id)) {
+                  return { ...item, favorite: true };
+                } else {
+                  return { ...item, favorite: false };
+                }
+              });
+
               return prev;
             }
           });
@@ -54,7 +61,6 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         }
       }
       checkUser();
-      setActivityList([...activityListHandler]);
       loadFavorites();
       console.log("Favorites loaded...");
     }, [])
