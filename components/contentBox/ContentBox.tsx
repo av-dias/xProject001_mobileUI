@@ -8,7 +8,6 @@ import TextBox from "../textBox";
 import color from "../../constants/color";
 import { heartIcon, fullHeartIcon } from "../../constants/icons";
 import IconContainer from "../iconContainer";
-import { ActivityType } from "../../constants/models";
 
 type ImageSourcePropType = React.ComponentProps<typeof Image>["source"];
 
@@ -56,67 +55,45 @@ const ContentBox: React.FC<Props> = (props) => {
             </View>
           </View>
           {!props.favorite ? (
-            <Pressable style={{ zIndex: 1 }} onPress={props.onFavorite}>
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 5,
-                  borderRadius: 20,
-                  alignContent: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <View style={{}}>
-                  <IconContainer>{heartIcon(30)}</IconContainer>
-                </View>
-              </View>
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 5,
-                  width: 50,
-                  height: 50,
-                  borderRadius: 20,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <View style={{ borderRadius: 10 }}>
+            <Pressable
+              style={{
+                position: "absolute",
+                width: 60,
+                height: 60,
+                bottom: 0,
+                right: 0,
+                justifyContent: "flex-end",
+                alignContent: "center",
+                alignItems: "center",
+                zIndex: 10,
+              }}
+              onPress={props.onFavorite}
+            >
+              <View style={{ position: "absolute", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+                <IconContainer>{heartIcon(30)}</IconContainer>
+                <View style={{ position: "absolute" }}>
                   <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
                 </View>
               </View>
             </Pressable>
           ) : (
-            <Pressable style={{ zIndex: 1 }} onPress={props.onUnFavorite}>
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 5,
-                  borderRadius: 20,
-                  alignContent: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <View style={{}}>
-                  <IconContainer>{fullHeartIcon(30)}</IconContainer>
-                </View>
-              </View>
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 5,
-                  width: 50,
-                  height: 50,
-                  borderRadius: 20,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <View style={{ borderRadius: 10 }}>
+            <Pressable
+              style={{
+                position: "absolute",
+                width: 60,
+                height: 60,
+                bottom: 0,
+                right: 0,
+                justifyContent: "flex-end",
+                alignContent: "center",
+                alignItems: "center",
+                zIndex: 10,
+              }}
+              onPress={props.onUnFavorite}
+            >
+              <View style={{ position: "absolute", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+                <IconContainer>{fullHeartIcon(30)}</IconContainer>
+                <View style={{ position: "absolute" }}>
                   <Text style={{ fontSize: 12, color: "black" }}>{props.rate}</Text>
                 </View>
               </View>
