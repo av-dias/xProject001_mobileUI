@@ -23,14 +23,14 @@ const Profile: React.FC<PropsWithChildren> = ({ navigation }) => {
               navigation.navigate("LandingPage");
             }}
           />
-          <CustomPressable
+          {/* <CustomPressable
             color={"pink"}
             text={"Clear Storage"}
             onPress={() => {
               clearValueStorage();
               console.log("Clear value storage");
             }}
-          />
+          /> */}
         </View>
       </UsableScreen>
     </SafeAreaView>

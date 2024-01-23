@@ -17,6 +17,7 @@ import { getFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
 import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { hideNavBar } from "../../functions/hideNavBar";
 
 type PropsWithChildren = {
   navigation: any;
@@ -26,6 +27,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [showIconFilter, setShowIconFilter] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([...activityListHandler]);
+  const [offset, setOffset] = useState(0);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -137,6 +139,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
           data={activityList}
           renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList)}
+          onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
         />
       </UsableScreen>
     </SafeAreaView>

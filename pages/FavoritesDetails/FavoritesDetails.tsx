@@ -22,8 +22,6 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
     React.useCallback(() => {
       async function getFavorites() {
         let tmpFavorites = await getFromStorage(storage.favorite);
-        console.log("favoritesDetais--------------------------------------------");
-        console.log(tmpFavorites);
         if (tmpFavorites && tmpFavorites != "") {
           let favorites = JSON.parse(tmpFavorites);
           favorites = favorites.filter((f: { favorite: boolean }) => f.favorite == true);

@@ -12,9 +12,6 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
     <Pressable
       style={{ width: "100%", aspectRatio: 1 }}
       onPress={() => {
-        console.log("Favorite---------------------------------------");
-        console.log(favoriteActivityList);
-
         navigation.navigate("FavoritesDetails", favoriteActivityList);
         navigation.setParams(favoriteActivityList);
       }}

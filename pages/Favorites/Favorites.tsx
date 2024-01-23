@@ -24,7 +24,6 @@ const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
         setFavoriteFolders(favoriteListHandler);
         let favoriteList = await getFromStorage(storage.favorite);
         console.log("list from favorite get from storage");
-        //console.log(favoriteList);
         if (favoriteList && favoriteList != "") {
           setFavoriteList(JSON.parse(favoriteList));
         } else {
