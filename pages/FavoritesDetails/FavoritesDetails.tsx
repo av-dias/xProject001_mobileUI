@@ -21,9 +21,17 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       async function getFavorites() {
-        setFavoriteList(props.route.params);
+        let tmpFavorites = await getFromStorage(storage.favorite);
+        console.log("favoritesDetais--------------------------------------------");
+        console.log(tmpFavorites);
+        if (tmpFavorites && tmpFavorites != "") {
+          let favorites = JSON.parse(tmpFavorites);
+          favorites = favorites.filter((f: { favorite: boolean }) => f.favorite == true);
+          setFavoriteList(favorites);
+        }
       }
       getFavorites();
+      console.log("Loading favorites details...");
     }, [])
   );
 
@@ -32,17 +40,16 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
       <UsableScreen>
         <View
           style={{
-            justifyContent: "center",
-            alignContent: "center",
             flex: 1,
           }}
         >
           <FlatList
             style={{
-              backgroundColor: "transparent",
               flex: 1,
             }}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            numColumns={2}
+            columnWrapperStyle={{ gap: 5, alignSelf: "center" }}
+            contentContainerStyle={{ alignItems: "flex-start", justifyContent: "space-between", gap: 5 }}
             data={favoriteList}
             renderItem={(activity) => renderFavoriteItem(activity, props.navigation, setFavoriteList)}
           />

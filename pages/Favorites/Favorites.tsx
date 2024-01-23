@@ -1,5 +1,5 @@
 import { View, ScrollView, FlatList, Modal, Alert, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
@@ -23,7 +23,8 @@ const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
       async function getFavorites() {
         setFavoriteFolders(favoriteListHandler);
         let favoriteList = await getFromStorage(storage.favorite);
-
+        console.log("list from favorite get from storage");
+        //console.log(favoriteList);
         if (favoriteList && favoriteList != "") {
           setFavoriteList(JSON.parse(favoriteList));
         } else {
