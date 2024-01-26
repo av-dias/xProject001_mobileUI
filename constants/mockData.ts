@@ -8,12 +8,12 @@ let Image1Small = require("../assets/image1-small.png");
 let Image2Small = require("../assets/image2-small.png");
 let Image3Small = require("../assets/image3-small.png");
 
-let Image4 = require("../assets/image4.png");
-let Image5 = require("../assets/image5.png");
-let Image6 = require("../assets/image6.png");
-let Image4Small = require("../assets/image4-small.png");
-let Image5Small = require("../assets/image5-small.png");
-let Image6Small = require("../assets/image6-small.png");
+let Image4 = require("../assets/image4.jpg");
+let Image5 = require("../assets/image5.jpg");
+let Image6 = require("../assets/image6.jpg");
+let Image4Small = require("../assets/image4small.jpg");
+let Image5Small = require("../assets/image5small.jpg");
+let Image6Small = require("../assets/image6small.jpg");
 
 export const activityListHandlerMock: ActivityType[] = [
   {
