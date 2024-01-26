@@ -14,6 +14,7 @@ export const hideNavBar = (e: any, setOffset: any, offset: any, navigation: any)
       tabBarStyle: {
         margin: 20,
         height: 50,
+        marginBottom: 5,
         borderRadius: 15,
         paddingHorizontal: 5,
         paddingTop: 5,
