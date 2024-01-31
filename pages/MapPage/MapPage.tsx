@@ -2,7 +2,7 @@ import { View, Image } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
-import { Marker } from "react-native-maps";
+import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { activityListHandler, markerHandler, renderActivityItem } from "./handler";
 import BottomSheet from "../../components/bottomSheet";
@@ -31,6 +31,7 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
+          provider={PROVIDER_GOOGLE}
         >
           {markerHandler.map((markerItem) => {
             return (
