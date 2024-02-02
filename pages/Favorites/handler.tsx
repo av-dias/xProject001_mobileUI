@@ -46,7 +46,7 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
                       left: "33%",
                       borderRadius: 100,
                       paddingHorizontal: 5,
-                      backgroundColor: "rgba(0, 0, 0, 0.8)",
+                      backgroundColor: color.light.grayBlur,
                     }}
                   >
                     <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>+{favoriteActivityList.length - 4}</Text>

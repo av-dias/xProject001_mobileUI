@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
@@ -9,6 +9,7 @@ import TextBox from "../../components/textBox";
 import IconContainer from "../../components/iconContainer";
 import PreviewComponent from "../../components/reviewComponent";
 import ReviewBox from "../../components/reviewBox";
+import BackButton from "../../components/backButton";
 
 import { heartIcon } from "../../constants/icons";
 import { reviewListHandler, availableListHandler } from "./handler";
@@ -41,6 +42,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
+        <BackButton navigation={props.navigation} toPage="Home" />
         <View style={{ flex: 1, backgroundColor: "gray", borderRadius: 20, gap: 10, overflow: "hidden" }}>
           <View style={{ flex: 1 }}>
             <ImageContainer imageSrc={props.route.params.imageSrc} />

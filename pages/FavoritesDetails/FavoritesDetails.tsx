@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
+import BackButton from "../../components/backButton";
 
 import { FavoriteType, ActivityType } from "../../constants/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
@@ -36,6 +37,10 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
+        <View style={{ flexDirection: "row", alignItems: "center", marginVertical: -20, marginLeft: -15 }}>
+          <BackButton navigation={props.navigation} toPage="Favorites" isAbsolute={false} />
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>Favorites</Text>
+        </View>
         <View
           style={{
             flex: 1,
