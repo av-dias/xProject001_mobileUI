@@ -31,10 +31,27 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
       </View>
       <View key={render.index} style={{ flex: 1, flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start" }}>
         {favoriteActivityList &&
-          favoriteActivityList.map((favoriteActivity) => {
+          favoriteActivityList.map((favoriteActivity, index) => {
+            if (index > 3) {
+              return;
+            }
             return (
               <View key={favoriteActivity.id} style={{ width: favoriteActivityList.length == 1 ? "100%" : "50%", aspectRatio: 1 }}>
                 <ImageContainer key={favoriteActivity.id} imageSrc={favoriteActivity.imageSrc} />
+                {index == 3 && favoriteActivityList.length > 3 && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: "38%",
+                      left: "33%",
+                      borderRadius: 100,
+                      paddingHorizontal: 5,
+                      backgroundColor: "rgba(0, 0, 0, 0.8)",
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>+{favoriteActivityList.length - 4}</Text>
+                  </View>
+                )}
               </View>
             );
           })}
