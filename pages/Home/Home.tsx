@@ -136,7 +136,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           </View>
         </View>
         <FlatList
-          ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           data={activityList}
           renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList)}
           onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}

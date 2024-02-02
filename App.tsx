@@ -31,9 +31,9 @@ function Tabs() {
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          margin: 20,
+          margin: 10,
           height: 50,
-          marginBottom: keyboard.keyboardShown ? 0 : 5,
+          marginBottom: keyboard.keyboardShown ? 0 : 2,
           borderRadius: 15,
           paddingHorizontal: 5,
           paddingTop: 5,

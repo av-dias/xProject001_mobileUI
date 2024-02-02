@@ -50,9 +50,9 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
           })}
         </MapView>
         <BottomSheet>
-          <View style={{ flex: 1, padding: 20, paddingTop: 40 }}>
+          <View style={{ flex: 1, padding: 10, paddingTop: 40 }}>
             <FlatList
-              ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+              ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
               data={activityList}
               renderItem={(activity) => renderActivityItem(activity, navigation)}
               contentContainerStyle={{}}
