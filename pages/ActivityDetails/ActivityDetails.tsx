@@ -14,6 +14,7 @@ import BackButton from "../../components/backButton";
 import { heartIcon } from "../../constants/icons";
 import { reviewListHandler, availableListHandler } from "./handler";
 import { ReviewType, AvailableType } from "../../constants/models";
+import { hideNavBar } from "../../functions/hideNavBar";
 
 type ActivityItemData = {
   imageSrc: any;
@@ -31,6 +32,7 @@ type PropsWithChildren = {
 };
 
 const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
+  const [offset, setOffset] = useState(0);
   const [reviewList, setReviewList] = useState<ReviewType[]>([]);
   const [availableList, setAvailableList] = useState<AvailableType[]>([]);
   const [timetable, setTimetable] = useState<any>({
@@ -58,7 +60,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
             <ImageContainer imageSrc={props.route.params.imageSrc} />
           </View>
           <View style={{ flex: 1, gap: 10, paddingHorizontal: 10 }}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} onScroll={(e) => hideNavBar(e, setOffset, offset, props.navigation)}>
               <View style={{ flex: 1, gap: 5 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                   <View style={{ justifyContent: "center" }}>

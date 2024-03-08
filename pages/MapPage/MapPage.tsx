@@ -8,6 +8,7 @@ import { activityListHandler, markerHandler, renderActivityItem } from "./handle
 import BottomSheet from "../../components/bottomSheet";
 import { useEffect, useState } from "react";
 import { ActivityType } from "../../constants/models";
+import { hideNavBar } from "../../functions/hideNavBar";
 
 type PropsWithChildren = {
   navigation: any;
@@ -15,6 +16,7 @@ type PropsWithChildren = {
 
 const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [activityList, setActivityList] = useState<ActivityType[]>([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     setActivityList(activityListHandler);
@@ -56,6 +58,7 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
               data={activityList}
               renderItem={(activity) => renderActivityItem(activity, navigation)}
               contentContainerStyle={{}}
+              onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
             />
           </View>
         </BottomSheet>
