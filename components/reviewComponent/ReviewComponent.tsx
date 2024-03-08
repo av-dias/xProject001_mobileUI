@@ -9,7 +9,7 @@ type Props = {
 
 const PreviewComponent: React.FC<Props> = (props) => {
   return (
-    <View style={{ backgroundColor: "transparent", borderRadius: 10, paddingVertical: 5, paddingHorizontal: 0, gap: 10 }}>
+    <View style={{ backgroundColor: "transparent", borderRadius: 10, paddingVertical: 5, paddingHorizontal: 0, gap: 5 }}>
       <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
         <Text>{props.title}</Text>
         <View>
