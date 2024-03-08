@@ -101,6 +101,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                     height: 70,
                     borderRadius: 10,
                     paddingVertical: 5,
+                    marginBottom: 5,
                     flexDirection: "row",
                     backgroundColor: "lightgray",
                     justifyContent: "space-evenly",
