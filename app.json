@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "RN001",
-    "slug": "RN001",
+    "slug": "rn001",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.av.dias.RN001",
+      "package": "com.avdias.RN001",
       "config": { "googleMaps": { "apiKey": "AIzaSyAemtyeJvWmrM3Pq4555RJrMJHVN2fUvCY" } }
     },
     "web": {
@@ -32,9 +32,8 @@
     },
     "extra": {
       "eas": {
-        "projectId": "363c5d50-228a-430a-be0e-91c71bc68db6"
+        "projectId": "5bb599c1-a0fe-4f37-b5f5-c91956aec41b"
       }
-    },
-    "owner": "av.dias"
+    }
   }
 }
