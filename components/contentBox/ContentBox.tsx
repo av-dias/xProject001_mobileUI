@@ -69,7 +69,15 @@ const ContentBox: React.FC<Props> = (props) => {
               }}
               onPress={props.onFavorite}
             >
-              <View style={{ position: "absolute", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+              <View
+                style={{
+                  position: "absolute",
+                  alignContent: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingVertical: 8,
+                }}
+              >
                 <IconContainer>{heartIcon(30)}</IconContainer>
                 <View style={{ position: "absolute" }}>
                   <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
@@ -91,7 +99,15 @@ const ContentBox: React.FC<Props> = (props) => {
               }}
               onPress={props.onUnFavorite}
             >
-              <View style={{ position: "absolute", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+              <View
+                style={{
+                  position: "absolute",
+                  alignContent: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingVertical: 8,
+                }}
+              >
                 <IconContainer>{fullHeartIcon(30)}</IconContainer>
                 <View style={{ position: "absolute" }}>
                   <Text style={{ fontSize: 12, color: "black" }}>{props.rate}</Text>
