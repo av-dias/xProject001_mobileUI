@@ -166,7 +166,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                       return (
                         <View
                           key={available.id}
-                          style={{ width: 50, height: 50, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
+                          style={{ width: 60, height: 60, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
                         >
                           <Text>{available.title}</Text>
                         </View>
