@@ -9,13 +9,14 @@ type PropsWithChildren = {
   fontWeight?: "normal" | "bold";
   fontSize?: number | 10;
   iconPosition?: "left" | "right";
+  viewSize?: number;
 };
 
 const TextBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ flexDirection: "row", borderRadius: 15, gap: 5 }}>
+    <View style={{ height: props.viewSize || "auto", flexDirection: "row", borderRadius: 15, gap: 5 }}>
       {props.icon && (props.iconPosition == "left" || (props.iconPosition == undefined && <IconContainer>{props.icon}</IconContainer>))}
-      <View style={{ justifyContent: "center" }}>
+      <View style={{ justifyContent: "center", alignContent: "center" }}>
         <Text style={{ fontWeight: props.fontWeight, fontSize: props.fontSize }}>{props.text}</Text>
       </View>
       {props.iconPosition == "right" && <IconContainer>{props.icon}</IconContainer>}

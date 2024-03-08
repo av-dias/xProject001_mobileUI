@@ -33,23 +33,33 @@ type PropsWithChildren = {
 const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
   const [reviewList, setReviewList] = useState<ReviewType[]>([]);
   const [availableList, setAvailableList] = useState<AvailableType[]>([]);
+  const [timetable, setTimetable] = useState<any>({
+    Fri: { end: "00:00", start: "00:00" },
+    Mon: { end: "00:00", start: "00:00" },
+    Sat: { end: "00:00", start: "00:00" },
+    Sun: { end: "00:00", start: "00:00" },
+    Thu: { end: "00:00", start: "00:00" },
+    Tue: { end: "00:00", start: "00:00" },
+    Wed: { end: "00:00", start: "00:00" },
+  });
 
   useEffect(() => {
     setReviewList(reviewListHandler);
     setAvailableList(availableListHandler);
+    setTimetable(JSON.parse(props.route.params.timetable));
   }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
         <BackButton navigation={props.navigation} toPage="Home" />
-        <View style={{ flex: 1, backgroundColor: "gray", borderRadius: 20, gap: 10, overflow: "hidden" }}>
+        <View style={{ flex: 1, backgroundColor: "transparent", borderRadius: 20, gap: 10, overflow: "hidden" }}>
           <View style={{ flex: 1 }}>
             <ImageContainer imageSrc={props.route.params.imageSrc} />
           </View>
           <View style={{ flex: 1, gap: 10, paddingHorizontal: 10 }}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <View style={{ flex: 1, gap: 10, paddingHorizontal: 10 }}>
+              <View style={{ flex: 1, gap: 5 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                   <View style={{ justifyContent: "center" }}>
                     <TextBox
@@ -69,16 +79,83 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   </View>
                 </View>
 
-                <View style={{ gap: 1 }}>
-                  <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.route.params.address}></TextBox>
+                <View style={{ justifyContent: "center", alignContent: "center", gap: 0, paddingBottom: 5, paddingHorizontal: 10 }}>
                   <TextBox
-                    icon={<FontAwesome5 name="icons" size={12} color="black" />}
+                    viewSize={18}
+                    fontSize={12}
+                    icon={<FontAwesome5 name="icons" size={8} color="black" />}
+                    text={props.route.params.address}
+                  ></TextBox>
+                  <TextBox
+                    viewSize={18}
+                    fontSize={12}
+                    icon={<FontAwesome5 name="icons" size={8} color="black" />}
                     text={"Average cost: " + props.route.params.price + "€"}
                   ></TextBox>
-                  <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={props.route.params.timetable}></TextBox>
                 </View>
 
-                <View style={{ height: 60, backgroundColor: "lightgray", borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
+                <View
+                  style={{
+                    height: 70,
+                    borderRadius: 10,
+                    paddingVertical: 5,
+                    flexDirection: "row",
+                    backgroundColor: "lightgray",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Mon"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Mon.start} />
+                      <TextBox text={timetable.Mon.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Tue"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Tue.start} />
+                      <TextBox text={timetable.Tue.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Wed"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Wed.start} />
+                      <TextBox text={timetable.Wed.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Thu"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Thu.start} />
+                      <TextBox text={timetable.Thu.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Fri"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Fri.start} />
+                      <TextBox text={timetable.Fri.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Sat"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Sat.start} />
+                      <TextBox text={timetable.Sat.end} />
+                    </View>
+                  </View>
+                  <View style={{ alignItems: "center", gap: 2 }}>
+                    <TextBox text={"Sun"} fontSize={12} />
+                    <View>
+                      <TextBox text={timetable.Sun.start} />
+                      <TextBox text={timetable.Sun.end} />
+                    </View>
+                  </View>
+                </View>
+                <View style={{ height: 70, backgroundColor: "lightgray", borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
                   <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={"Earn 100 Points on reservation"} />
                 </View>
 
