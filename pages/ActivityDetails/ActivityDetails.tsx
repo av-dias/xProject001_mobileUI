@@ -161,7 +161,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
 
                 <PreviewComponent title={"Available"} onPress={() => alert("Not Implemented Yet")}>
                   {/* Needs to be a flatList */}
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 20 }}>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10 }}>
                     {availableList.map((available) => {
                       return (
                         <View
