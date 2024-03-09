@@ -6,7 +6,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-na
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
 const MIN_TRANSLATE_Y = -100;
-type Props = { children: React.ReactNode };
+type Props = { color?: string; children: React.ReactNode };
 
 const BottomSheet: React.FC<Props> = (props) => {
   const translateY = useSharedValue(0);
@@ -38,7 +38,7 @@ const BottomSheet: React.FC<Props> = (props) => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[style.bottomSheetContainer, rBottomSheetStyle]}>
+      <Animated.View style={[style.bottomSheetContainer, rBottomSheetStyle, { backgroundColor: props.color || "white" }]}>
         <View style={style.line} />
         {props.children}
       </Animated.View>
@@ -50,7 +50,6 @@ const style = StyleSheet.create({
   bottomSheetContainer: {
     height: SCREEN_HEIGHT,
     width: "100%",
-    backgroundColor: "white",
     position: "absolute",
     top: SCREEN_HEIGHT,
     borderRadius: 25,

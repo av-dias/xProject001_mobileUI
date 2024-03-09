@@ -6,9 +6,9 @@ import UsableScreen from "../../components/usableScreen";
 
 import { FavoriteType, ActivityType } from "../../constants/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
-import { getFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { getAllUniqueFavorites } from "../../functions/favorite";
 
 type PropsWithChildren = {
   navigation: any;
@@ -22,10 +22,10 @@ const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
     React.useCallback(() => {
       async function getFavorites() {
         setFavoriteFolders(favoriteListHandler);
-        let favoriteList = await getFromStorage(storage.favorite);
+        let favoriteList = await getAllUniqueFavorites(storage.favorite);
         console.log("list from favorite get from storage");
-        if (favoriteList && favoriteList != "") {
-          setFavoriteList(JSON.parse(favoriteList));
+        if (favoriteList) {
+          setFavoriteList(favoriteList);
         } else {
           setFavoriteList(null);
         }

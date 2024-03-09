@@ -3,9 +3,9 @@ import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../constants/models";
 import ContentBox from "../../components/contentBox";
 import { activityListHandlerMock } from "../../constants/mockData";
-import { addToStorage, removeFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
 import { getDayOfWeek } from "../../constants/calendar";
+import { addFavoriteToFolder, removeFavoriteToFolder } from "../../functions/favorite";
 
 const getTimeFromTimeTable = (time: string) => {
   let timetableJSON = JSON.parse(time);
@@ -14,7 +14,7 @@ const getTimeFromTimeTable = (time: string) => {
   else return timetableJSON[getDayOfWeek(todayDay)].start + " - " + timetableJSON[getDayOfWeek(todayDay)].end;
 };
 
-const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation: any, setActivityList: any) => (
+const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation: any, setActivityList: any, setModalFavoritesVisible: any) => (
   <View style={{ width: "100%", height: 205 }}>
     <ContentBox
       imageSrc={render.item.imageSrc}
@@ -25,7 +25,8 @@ const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation
       rate={render.item.rate}
       navigation={() => navigation.navigate("ActivityDetails", render.item)}
       onFavorite={async () => {
-        await addToStorage(storage.favorite, { ...render.item, favorite: true });
+        setModalFavoritesVisible(true);
+        await addFavoriteToFolder(storage.favorite, { ...render.item, favorite: true });
         let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
         render.item.favorite = true;
         setActivityList((lastState: any[]) => {
@@ -38,7 +39,7 @@ const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation
       }}
       onUnFavorite={async () => {
         //await addToStorage(storage.favorite, { ...render.item, favorite: true });
-        await removeFromStorage(storage.favorite, render.item.id);
+        await removeFavoriteToFolder(storage.favorite, render.item.id);
         let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
         render.item.favorite = false;
         setActivityList((lastState: any[]) => {

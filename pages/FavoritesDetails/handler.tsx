@@ -2,10 +2,10 @@ import { View } from "react-native";
 
 import { favoriteListHandlerMock } from "../../constants/mockData";
 import { ListRenderItemInfo } from "react-native";
-import { ActivityType, FavoriteType } from "../../constants/models";
+import { ActivityType } from "../../constants/models";
 import ContentBox from "../../components/contentBox";
-import { removeFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
+import { removeFavoriteToFolder } from "../../functions/favorite";
 
 const renderFavoriteItem = (render: ListRenderItemInfo<ActivityType>, navigation: any, setFavoriteList: any) => (
   <View style={{ width: "49%", aspectRatio: 1 }}>
@@ -17,7 +17,7 @@ const renderFavoriteItem = (render: ListRenderItemInfo<ActivityType>, navigation
       navigation={() => navigation.navigate("ActivityDetails", render.item)}
       onUnFavorite={async () => {
         //await addToStorage(storage.favorite, { ...render.item, favorite: true });
-        await removeFromStorage(storage.favorite, render.item.id);
+        await removeFavoriteToFolder(storage.favorite, render.item.id);
         render.item.favorite = false;
         setFavoriteList((lastState: any[]) => {
           {

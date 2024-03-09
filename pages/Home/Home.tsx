@@ -1,4 +1,4 @@
-import { View, ScrollView, FlatList, Modal, Alert, Text } from "react-native";
+import { View, ScrollView, FlatList, Modal, Alert, Text, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, Feather, Entypo } from "@expo/vector-icons";
@@ -11,13 +11,16 @@ import ExpansionBar from "../../components/expansionBar";
 import CustomPressable from "../../components/customPressable";
 
 import { renderActivityItem, activityListHandler } from "./handler";
-import { ActivityType, Coordinate } from "../../constants/models";
+import { ActivityType } from "../../constants/models";
 import { iconsfilter } from "../../constants/icons";
 import { getFromStorage } from "../../functions/localStorage";
 import storage from "../../constants/storage";
 import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../functions/hideNavBar";
+import BottomSheet from "../../components/bottomSheet";
+import { checkUpdates } from "../../functions/devUpdate";
+import { getAllUniqueFavorites } from "../../functions/favorite";
 
 type PropsWithChildren = {
   navigation: any;
@@ -26,6 +29,7 @@ type PropsWithChildren = {
 const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [showIconFilter, setShowIconFilter] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([...activityListHandler]);
   const [offset, setOffset] = useState(0);
 
@@ -36,9 +40,9 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         if (email == "") setModalVisible(true);
       }
       async function loadFavorites() {
-        let tmpFavoriteList = await getFromStorage(storage.favorite);
-        if (tmpFavoriteList) {
-          let favorites = JSON.parse(tmpFavoriteList);
+        let favorites = await getAllUniqueFavorites(storage.favorite);
+
+        if (favorites) {
           setActivityList((lastValue) => {
             {
               let prev = [...lastValue];
@@ -62,6 +66,10 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           console.log("Updating favorite list...");
         }
       }
+      async function checkDevUpdates() {
+        checkUpdates();
+      }
+      checkDevUpdates();
       checkUser();
       loadFavorites();
       console.log("Favorites loaded...");
@@ -138,10 +146,40 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         <FlatList
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           data={activityList}
-          renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList)}
+          renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList, setModalFavoritesVisible)}
           onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
         />
       </UsableScreen>
+      {modalFavoritesVisible && (
+        <BottomSheet color={"lightgray"}>
+          <View style={{ flex: 1, padding: 10, paddingTop: 30 }}>
+            <Pressable
+              onPress={() => {
+                setModalFavoritesVisible(false);
+              }}
+            >
+              <View
+                style={{
+                  height: 80,
+                  backgroundColor: "gray",
+                  borderRadius: 10,
+                  justifyContent: "center",
+                  padding: 10,
+                  flexDirection: "row",
+                  gap: 10,
+                }}
+              >
+                <View style={{ height: "auto", width: 80, backgroundColor: "lightgray", borderRadius: 5 }}></View>
+                <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 5 }}>
+                  <View style={{ padding: 5 }}>
+                    <Text style={{ fontWeight: "bold" }}>Favorites</Text>
+                  </View>
+                </View>
+              </View>
+            </Pressable>
+          </View>
+        </BottomSheet>
+      )}
     </SafeAreaView>
   );
 };

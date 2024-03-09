@@ -5,11 +5,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import UsableScreen from "../../components/usableScreen";
 import BackButton from "../../components/backButton";
 
-import { FavoriteType, ActivityType } from "../../constants/models";
-import { renderFavoriteItem, favoriteListHandler } from "./handler";
-import { getFromStorage } from "../../functions/localStorage";
+import { ActivityType } from "../../constants/models";
+import { renderFavoriteItem } from "./handler";
 import storage from "../../constants/storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { getAllUniqueFavorites } from "../../functions/favorite";
 
 type PropsWithChildren = {
   navigation: any;
@@ -22,9 +22,9 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       async function getFavorites() {
-        let tmpFavorites = await getFromStorage(storage.favorite);
-        if (tmpFavorites && tmpFavorites != "") {
-          let favorites = JSON.parse(tmpFavorites);
+        let tmpFavorites = await getAllUniqueFavorites(storage.favorite);
+        if (tmpFavorites) {
+          let favorites = tmpFavorites;
           favorites = favorites.filter((f: { favorite: boolean }) => f.favorite == true);
           setFavoriteList(favorites);
         }
