@@ -16,10 +16,13 @@ export const checkUpdates = async () => {
         await saveToStorage(storage.favorite, JSON.stringify(newFavorites));
         await saveToStorage(storage.devUpdates, JSON.stringify(UPDATE_VERSION));
       } else {
-        console.log("==>No dev updates required...");
+        console.log("==>No dev updates required... Favorites already exist");
       }
     } else {
-      console.log("==>No dev updates required...");
+      console.log("==>Favorites is empty... Creating favorites...");
+      let newFavorites = { favorites: [] };
+      await saveToStorage(storage.favorite, JSON.stringify(newFavorites));
+      await saveToStorage(storage.devUpdates, JSON.stringify(UPDATE_VERSION));
     }
   } else {
     console.log("==>No dev updates required...");
