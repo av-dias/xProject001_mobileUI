@@ -7,7 +7,7 @@ export const getFavoriteFolders = async (key: string) => {
 
 export const getRawFavorites = async (key: string) => {
   let favorites = await getFromStorage(key);
-  if (!favorites) return {};
+  if (!favorites) return { favorites: [] };
   let favJSON = JSON.parse(favorites);
   return favJSON;
 };
@@ -22,10 +22,15 @@ export const getAllUniqueFavorites = async (key: string) => {
   return listOfUnirqueFavorites;
 };
 
-export const addFavoriteToFolder = async (key: string, item: any) => {
-  let folder = "favorites";
+export const addItemToFavoriteFolder = async (key: string, item: any, folder: string) => {
   let favorites = await getRawFavorites(key);
   favorites[folder] = [...favorites[folder], item];
+  await saveToStorage(key, JSON.stringify(favorites));
+};
+
+export const addFavoriteFolder = async (key: string, folder: string) => {
+  let favorites = await getRawFavorites(key);
+  favorites[folder] = [];
   await saveToStorage(key, JSON.stringify(favorites));
 };
 

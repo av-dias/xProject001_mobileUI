@@ -5,7 +5,7 @@ import ContentBox from "../../components/contentBox";
 import { activityListHandlerMock } from "../../constants/mockData";
 import storage from "../../constants/storage";
 import { getDayOfWeek } from "../../constants/calendar";
-import { addFavoriteToFolder, removeFavoriteToFolder } from "../../functions/favorite";
+import { addItemToFavoriteFolder, removeFavoriteToFolder } from "../../functions/favorite";
 
 const getTimeFromTimeTable = (time: string) => {
   let timetableJSON = JSON.parse(time);
@@ -26,7 +26,7 @@ const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation
       navigation={() => navigation.navigate("ActivityDetails", render.item)}
       onFavorite={async () => {
         setModalFavoritesVisible(true);
-        await addFavoriteToFolder(storage.favorite, { ...render.item, favorite: true });
+        await addItemToFavoriteFolder(storage.favorite, { ...render.item, favorite: true }, "favorites");
         let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
         render.item.favorite = true;
         setActivityList((lastState: any[]) => {

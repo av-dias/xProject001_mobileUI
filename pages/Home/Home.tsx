@@ -1,7 +1,7 @@
 import { View, ScrollView, FlatList, Modal, Alert, Text, Pressable } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AntDesign, Feather, Entypo } from "@expo/vector-icons";
+import { AntDesign, Feather, Entypo, Ionicons } from "@expo/vector-icons";
 import color from "../../constants/color";
 
 import UsableScreen from "../../components/usableScreen";
@@ -20,7 +20,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../functions/hideNavBar";
 import BottomSheet from "../../components/bottomSheet";
 import { checkUpdates } from "../../functions/devUpdate";
-import { getAllUniqueFavorites } from "../../functions/favorite";
+import { addFavoriteFolder, addItemToFavoriteFolder, getAllUniqueFavorites, getFavoriteFolders } from "../../functions/favorite";
+import { TextInput } from "react-native-gesture-handler";
 
 type PropsWithChildren = {
   navigation: any;
@@ -32,6 +33,9 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([...activityListHandler]);
   const [offset, setOffset] = useState(0);
+  const [newFolderVisible, setNewFolderVisible] = useState(false);
+  const [favoriteList, setFavoriteList] = useState<string[]>([]);
+  const [folderName, setFolderName] = useState<string>();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -41,7 +45,9 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
       }
       async function loadFavorites() {
         let favorites = await getAllUniqueFavorites(storage.favorite);
+        let resFavoritesList = await getFavoriteFolders(storage.favorite);
 
+        setFavoriteList(resFavoritesList);
         if (favorites) {
           setActivityList((lastValue) => {
             {
@@ -152,31 +158,129 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
       </UsableScreen>
       {modalFavoritesVisible && (
         <BottomSheet color={"lightgray"}>
-          <View style={{ flex: 1, padding: 10, paddingTop: 30 }}>
+          <View style={{ paddingHorizontal: 5, alignItems: "flex-end" }}>
             <Pressable
+              style={{ padding: 10, backgroundColor: "transparent" }}
               onPress={() => {
                 setModalFavoritesVisible(false);
               }}
             >
-              <View
-                style={{
-                  height: 80,
-                  backgroundColor: "gray",
-                  borderRadius: 10,
-                  justifyContent: "center",
-                  padding: 10,
-                  flexDirection: "row",
-                  gap: 10,
+              <AntDesign name="closecircleo" size={20} color="black" />
+            </Pressable>
+          </View>
+          <View style={{ flex: 1, padding: 10, paddingTop: 5, gap: 10 }}>
+            {favoriteList &&
+              favoriteList.map((folder) => (
+                <Pressable
+                  key={"Fav" + folder}
+                  onPress={() => {
+                    setModalFavoritesVisible(false);
+                  }}
+                >
+                  <View
+                    style={{
+                      height: 80,
+                      backgroundColor: "gray",
+                      borderRadius: 10,
+                      justifyContent: "center",
+                      padding: 10,
+                      flexDirection: "row",
+                      gap: 10,
+                    }}
+                  >
+                    <View style={{ height: "auto", width: 80, backgroundColor: "lightgray", borderRadius: 5 }}></View>
+                    <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 5 }}>
+                      <View style={{ padding: 5 }}>
+                        <Text style={{ fontWeight: "bold" }}>{folder.toUpperCase()}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </Pressable>
+              ))}
+            <View>
+              <Pressable
+                onPress={() => {
+                  setNewFolderVisible(true);
                 }}
               >
-                <View style={{ height: "auto", width: 80, backgroundColor: "lightgray", borderRadius: 5 }}></View>
-                <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 5 }}>
-                  <View style={{ padding: 5 }}>
-                    <Text style={{ fontWeight: "bold" }}>Favorites</Text>
+                <View
+                  style={{
+                    width: "auto",
+                    padding: 10,
+                    paddingLeft: 20,
+                    backgroundColor: "transparent",
+                    alignSelf: "flex-end",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <Text style={{ color: "blue" }}>New Folder</Text>
+                </View>
+              </Pressable>
+            </View>
+            {newFolderVisible && (
+              <Pressable
+                onPress={() => {
+                  setModalFavoritesVisible(false);
+                }}
+              >
+                <View
+                  style={{
+                    height: 80,
+                    backgroundColor: "gray",
+                    borderRadius: 10,
+                    justifyContent: "center",
+                    padding: 10,
+                    flexDirection: "row",
+                    gap: 10,
+                  }}
+                >
+                  <View style={{ height: "auto", width: 80, backgroundColor: "lightgray", borderRadius: 5 }}></View>
+                  <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 5 }}>
+                    <View style={{ padding: 5, paddingBottom: 0 }}>
+                      <TextInput
+                        onChangeText={(text) => {
+                          setFolderName(text);
+                        }}
+                        placeholder="Folder Name"
+                      ></TextInput>
+                    </View>
+                    <View
+                      style={{
+                        gap: 10,
+                        marginTop: -5,
+                        paddingRight: 5,
+                        backgroundColor: "transparent",
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Pressable
+                        style={{ padding: 5, backgroundColor: "transparent" }}
+                        onPress={async () => {
+                          if (folderName) {
+                            setFavoriteList((prev) => [...prev, folderName]);
+                            addFavoriteFolder(storage.favorite, folderName);
+                          } else {
+                            alert("Please insert a folder name.");
+                          }
+                        }}
+                      >
+                        <AntDesign name="checkcircleo" size={22} color="black" />
+                      </Pressable>
+                      <Pressable
+                        style={{ padding: 5, backgroundColor: "transparent" }}
+                        onPress={() => {
+                          alert("Cancel");
+                        }}
+                      >
+                        <Ionicons name="trash-bin-outline" size={24} color="black" />
+                      </Pressable>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Pressable>
+              </Pressable>
+            )}
           </View>
         </BottomSheet>
       )}
