@@ -14,7 +14,13 @@ const getTimeFromTimeTable = (time: string) => {
   else return timetableJSON[getDayOfWeek(todayDay)].start + " - " + timetableJSON[getDayOfWeek(todayDay)].end;
 };
 
-const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation: any, setActivityList: any, setModalFavoritesVisible: any) => (
+const renderActivityItem = (
+  render: ListRenderItemInfo<ActivityType>,
+  navigation: any,
+  setActivityList: any,
+  setModalFavoritesVisible: any,
+  setSelectedActivity: any
+) => (
   <View style={{ width: "100%", height: 205 }}>
     <ContentBox
       imageSrc={render.item.imageSrc}
@@ -27,6 +33,7 @@ const renderActivityItem = (render: ListRenderItemInfo<ActivityType>, navigation
       onFavorite={async () => {
         setModalFavoritesVisible(true);
         await addItemToFavoriteFolder(storage.favorite, { ...render.item, favorite: true }, "favorites");
+        setSelectedActivity(render.item);
         let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
         render.item.favorite = true;
         setActivityList((lastState: any[]) => {

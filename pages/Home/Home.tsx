@@ -20,7 +20,13 @@ import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../functions/hideNavBar";
 import BottomSheet from "../../components/bottomSheet";
 import { checkUpdates } from "../../functions/devUpdate";
-import { addFavoriteFolder, addItemToFavoriteFolder, getAllUniqueFavorites, getFavoriteFolders } from "../../functions/favorite";
+import {
+  addFavoriteFolder,
+  addItemToFavoriteFolder,
+  getAllUniqueFavorites,
+  getFavoriteFolders,
+  getFolderWithFavorites,
+} from "../../functions/favorite";
 import { TextInput } from "react-native-gesture-handler";
 
 type PropsWithChildren = {
@@ -36,6 +42,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [newFolderVisible, setNewFolderVisible] = useState(false);
   const [favoriteList, setFavoriteList] = useState<string[]>([]);
   const [folderName, setFolderName] = useState<string>();
+  const [selectedAtivity, setSelectedActivity] = useState<ActivityType | null>(null);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -48,6 +55,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         let resFavoritesList = await getFavoriteFolders(storage.favorite);
 
         setFavoriteList(resFavoritesList);
+
         if (favorites) {
           setActivityList((lastValue) => {
             {
@@ -152,7 +160,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         <FlatList
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           data={activityList}
-          renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList, setModalFavoritesVisible)}
+          renderItem={(activity) => renderActivityItem(activity, navigation, setActivityList, setModalFavoritesVisible, setSelectedActivity)}
           onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
         />
       </UsableScreen>
@@ -173,8 +181,9 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
               favoriteList.map((folder) => (
                 <Pressable
                   key={"Fav" + folder}
-                  onPress={() => {
+                  onPress={async () => {
                     setModalFavoritesVisible(false);
+                    await addItemToFavoriteFolder(storage.favorite, selectedAtivity, folder);
                   }}
                 >
                   <View

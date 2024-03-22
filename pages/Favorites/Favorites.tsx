@@ -8,27 +8,21 @@ import { FavoriteType, ActivityType } from "../../constants/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
 import storage from "../../constants/storage";
 import { useFocusEffect } from "@react-navigation/native";
-import { getAllUniqueFavorites } from "../../functions/favorite";
+import { getAllUniqueFavorites, getFolderWithFavorites, getRawFavorites } from "../../functions/favorite";
 
 type PropsWithChildren = {
   navigation: any;
 };
 
 const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
-  const [favoriteFolders, setFavoriteFolders] = useState<FavoriteType[]>([]);
-  const [favoriteList, setFavoriteList] = useState<ActivityType[] | null>(null);
+  const [favoriteFolders, setFavoriteFolders] = useState<any>([]);
 
   useFocusEffect(
     React.useCallback(() => {
       async function getFavorites() {
-        setFavoriteFolders(favoriteListHandler);
-        let favoriteList = await getAllUniqueFavorites(storage.favorite);
+        let res = await getFolderWithFavorites(storage.favorite);
         console.log("list from favorite get from storage");
-        if (favoriteList) {
-          setFavoriteList(favoriteList);
-        } else {
-          setFavoriteList(null);
-        }
+        setFavoriteFolders(res);
       }
       getFavorites();
     }, [])
@@ -51,8 +45,12 @@ const Favorites: React.FC<PropsWithChildren> = ({ navigation }) => {
               flex: 1,
             }}
             ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
+            contentContainerStyle={{ gap: 10 }}
+            columnWrapperStyle={{ gap: 10 }}
             data={favoriteFolders}
-            renderItem={(activity) => renderFavoriteItem(activity, navigation, favoriteList)}
+            renderItem={(activity) => {
+              return renderFavoriteItem(activity, navigation);
+            }}
           />
         </View>
       </UsableScreen>

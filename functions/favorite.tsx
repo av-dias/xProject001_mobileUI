@@ -12,6 +12,17 @@ export const getRawFavorites = async (key: string) => {
   return favJSON;
 };
 
+export const getFolderWithFavorites = async (key: string) => {
+  let favorites = await getFromStorage(key);
+  if (!favorites) return { favorites: [] };
+  let favJSON = JSON.parse(favorites);
+  let favoritesByFolder: { activityList: any; id: string; name: string; }[] = [];
+  Object.keys(favJSON).forEach((fav) => {
+    favoritesByFolder.push({ activityList: favJSON[fav], id: fav, name: fav });
+  });
+  return favoritesByFolder;
+};
+
 export const getAllUniqueFavorites = async (key: string) => {
   let favorites = await getRawFavorites(key);
   let keys = await getFavoriteFolders(key);
@@ -46,6 +57,6 @@ export const removeFavoriteToFolder = async (key: string, id: string) => {
 };
 
 /*
-    { Favorites: []}
-    { Summer:    []}
+  { Favorites: []}
+  { Summer:    []}
 */

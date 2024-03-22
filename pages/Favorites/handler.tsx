@@ -1,19 +1,20 @@
 import { favoriteListHandlerMock } from "../../constants/mockData";
-import { ListRenderItemInfo } from "react-native";
+import { ImageSourcePropType, ListRenderItemInfo } from "react-native";
 import { ActivityType, FavoriteType } from "../../constants/models";
 import { View, Text, Pressable } from "react-native";
 import ImageContainer from "../../components/imageContainer";
 import color from "../../constants/color";
+import { Key } from "react";
 
-const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation: any, favoriteActivityList: ActivityType[] | null) => (
+const renderFavoriteItem = (render: ListRenderItemInfo<any>, navigation: any) => (
   <View
     style={{ flex: 1 / 2, backgroundColor: color.light.grayBlur, aspectRatio: 1, justifyContent: "center", alignItems: "center", borderRadius: 20 }}
   >
     <Pressable
       style={{ width: "100%", aspectRatio: 1 }}
       onPress={() => {
-        navigation.navigate("FavoritesDetails", favoriteActivityList);
-        navigation.setParams(favoriteActivityList);
+        navigation.navigate("FavoritesDetails", render.item.activityList);
+        navigation.setParams(render.item.activityList);
       }}
     >
       <View
@@ -30,15 +31,15 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
         <Text>{render.item.name}</Text>
       </View>
       <View key={render.index} style={{ flex: 1, flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start" }}>
-        {favoriteActivityList &&
-          favoriteActivityList.map((favoriteActivity, index) => {
+        {render.item.activityList &&
+          render.item.activityList.map((favoriteActivity: { id: Key | null | undefined; imageSrc: ImageSourcePropType }, index: number) => {
             if (index > 3) {
               return;
             }
             return (
-              <View key={favoriteActivity.id} style={{ width: favoriteActivityList.length == 1 ? "100%" : "50%", aspectRatio: 1 }}>
+              <View key={favoriteActivity.id} style={{ width: render.item.activityList.length == 1 ? "100%" : "50%", aspectRatio: 1 }}>
                 <ImageContainer key={favoriteActivity.id} imageSrc={favoriteActivity.imageSrc} />
-                {index == 3 && favoriteActivityList.length > 3 && (
+                {index == 3 && render.item.activityList.length > 3 && (
                   <View
                     style={{
                       position: "absolute",
@@ -49,7 +50,7 @@ const renderFavoriteItem = (render: ListRenderItemInfo<FavoriteType>, navigation
                       backgroundColor: color.light.grayBlur,
                     }}
                   >
-                    <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>+{favoriteActivityList.length - 4}</Text>
+                    <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>+{render.item.activityList.length - 4}</Text>
                   </View>
                 )}
               </View>
