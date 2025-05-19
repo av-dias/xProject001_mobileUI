@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import UsableScreen from "../../components/usableScreen";
 import CustomPressable from "../../components/customPressable";
 
-import { clearStorage, clearValueStorage } from "../../functions/localStorage";
+import { clearStorage, clearValueStorage } from "../../storage/baseStorage";
 
 type PropsWithChildren = {
   navigation: any;

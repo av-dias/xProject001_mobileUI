@@ -1,11 +1,15 @@
 import { View, Text } from "react-native";
 import { ReactNode } from "react";
-import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
 import CustomPressable from "../../components/customPressable";
 
-import { saveToStorage } from "../../functions/localStorage";
+import { saveToStorage } from "../../storage/baseStorage";
 import storage from "../../constants/storage";
 
 type PropsWithChildren = {
@@ -16,8 +20,22 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
-        <View style={{ flex: 1, backgroundColor: "transparent", justifyContent: "center" }}>
-          <View style={{ width: 200, height: 200, backgroundColor: "gray", alignSelf: "center", marginBottom: 300 }}></View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "transparent",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              width: 200,
+              height: 200,
+              backgroundColor: "gray",
+              alignSelf: "center",
+              marginBottom: 300,
+            }}
+          ></View>
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, paddingHorizontal: 20 }}>
               <CustomPressable

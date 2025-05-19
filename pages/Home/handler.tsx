@@ -1,17 +1,26 @@
 import { View } from "react-native";
 import { ListRenderItemInfo } from "react-native";
-import { ActivityType } from "../../constants/models";
+import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";
-import { activityListHandlerMock } from "../../constants/mockData";
+import { activityListHandlerMock } from "../../mocks/mockData";
 import storage from "../../constants/storage";
 import { getDayOfWeek } from "../../constants/calendar";
-import { addItemToFavoriteFolder, removeFavoriteToFolder } from "../../functions/favorite";
+import {
+  addItemToFavoriteFolder,
+  removeFavoriteToFolder,
+} from "../../storage/favoriteStorage";
 
 const getTimeFromTimeTable = (time: string) => {
   let timetableJSON = JSON.parse(time);
   let todayDay = new Date().getDay();
-  if (timetableJSON[getDayOfWeek(todayDay)].start == "Closed") return timetableJSON[getDayOfWeek(todayDay)].start;
-  else return timetableJSON[getDayOfWeek(todayDay)].start + " - " + timetableJSON[getDayOfWeek(todayDay)].end;
+  if (timetableJSON[getDayOfWeek(todayDay)].start == "Closed")
+    return timetableJSON[getDayOfWeek(todayDay)].start;
+  else
+    return (
+      timetableJSON[getDayOfWeek(todayDay)].start +
+      " - " +
+      timetableJSON[getDayOfWeek(todayDay)].end
+    );
 };
 
 const renderActivityItem = (
@@ -32,7 +41,11 @@ const renderActivityItem = (
       navigation={() => navigation.navigate("ActivityDetails", render.item)}
       onFavorite={async () => {
         setModalFavoritesVisible(true);
-        await addItemToFavoriteFolder(storage.favorite, { ...render.item, favorite: true }, "favorites");
+        await addItemToFavoriteFolder(
+          storage.favorite,
+          { ...render.item, favorite: true },
+          "favorites"
+        );
         setSelectedActivity(render.item);
         let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
         render.item.favorite = true;

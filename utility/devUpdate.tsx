@@ -1,5 +1,5 @@
 import storage from "../constants/storage";
-import { getFromStorage, saveToStorage } from "./localStorage";
+import { getFromStorage, saveToStorage } from "../storage/baseStorage";
 
 const UPDATE_VERSION = "4";
 

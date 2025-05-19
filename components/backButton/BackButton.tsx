@@ -12,12 +12,24 @@ type Props = {
 const BackButton: React.FC<Props> = (props) => {
   return (
     <Pressable
-      style={{ position: props.isAbsolute == false ? "relative" : "absolute", zIndex: 1, padding: 15, borderRadius: 20 }}
+      style={{
+        position: props.isAbsolute == false ? "relative" : "absolute",
+        zIndex: 1,
+        padding: 15,
+        borderRadius: 20,
+      }}
       onPress={() => {
         props.navigation.navigate(props.toPage);
       }}
     >
-      <View style={{ backgroundColor: color.light.grayBlur, zIndex: 1, borderRadius: 20, padding: 0 }}>
+      <View
+        style={{
+          backgroundColor: color.light.grayBlur,
+          zIndex: 1,
+          borderRadius: 20,
+          padding: 0,
+        }}
+      >
         <AntDesign name="leftcircleo" size={30} color="black" />
       </View>
     </Pressable>

@@ -1,8 +1,20 @@
-import { View, Text, ScrollView, Pressable, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  Dimensions,
+  Image,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
-import Animated, { interpolate, useAnimatedRef, useAnimatedStyle, useScrollViewOffset } from "react-native-reanimated";
+import Animated, {
+  interpolate,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useScrollViewOffset,
+} from "react-native-reanimated";
 
 import UsableScreen from "../../components/usableScreen";
 import ImageContainer from "../../components/imageContainer";
@@ -14,8 +26,8 @@ import BackButton from "../../components/backButton";
 
 import { heartIcon } from "../../constants/icons";
 import { reviewListHandler, availableListHandler } from "./handler";
-import { ReviewType, AvailableType } from "../../constants/models";
-import { hideNavBar } from "../../functions/hideNavBar";
+import { ReviewType, AvailableType } from "../../models/models";
+import { hideNavBar } from "../../utility/hideNavBar";
 import color from "../../constants/color";
 
 type ActivityItemData = {
@@ -63,10 +75,18 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
     return {
       transform: [
         {
-          translateY: interpolate(scrollOffset.value, [-IMG_HEIGHT, 0, IMG_HEIGHT], [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]),
+          translateY: interpolate(
+            scrollOffset.value,
+            [-IMG_HEIGHT, 0, IMG_HEIGHT],
+            [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]
+          ),
         },
         {
-          scale: interpolate(scrollOffset.value, [-IMG_HEIGHT, 0, IMG_HEIGHT], [2, 1, 1]),
+          scale: interpolate(
+            scrollOffset.value,
+            [-IMG_HEIGHT, 0, IMG_HEIGHT],
+            [2, 1, 1]
+          ),
         },
       ],
     };
@@ -76,15 +96,40 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
         <BackButton navigation={props.navigation} toPage="Home" />
-        <View style={{ flex: 1, backgroundColor: "transparent", borderRadius: 20, gap: 10, overflow: "hidden" }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "transparent",
+            borderRadius: 20,
+            gap: 10,
+            overflow: "hidden",
+          }}
+        >
           <Animated.ScrollView
             ref={scrollRef}
             showsVerticalScrollIndicator={false}
-            onScroll={(e: any) => hideNavBar(e, setOffset, offset, props.navigation)}
+            onScroll={(e: any) =>
+              hideNavBar(e, setOffset, offset, props.navigation)
+            }
           >
-            <Animated.Image source={props.route.params.imageSrc} style={[{ width: "auto", height: 300, borderRadius: 10 }, imageAnimatedStyle]} />
-            <View style={{ backgroundColor: "white", gap: 5, borderRadius: 10 }}>
-              <View style={{ paddingHorizontal: 10, paddingTop: 5, flexDirection: "row", justifyContent: "space-between" }}>
+            <Animated.Image
+              source={props.route.params.imageSrc}
+              style={[
+                { width: "auto", height: 300, borderRadius: 10 },
+                imageAnimatedStyle,
+              ]}
+            />
+            <View
+              style={{ backgroundColor: "white", gap: 5, borderRadius: 10 }}
+            >
+              <View
+                style={{
+                  paddingHorizontal: 10,
+                  paddingTop: 5,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
                 <View style={{ justifyContent: "center" }}>
                   <TextBox
                     icon={<FontAwesome5 name="icons" size={15} color="black" />}
@@ -94,16 +139,28 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   ></TextBox>
                 </View>
                 <View>
-                  <View style={{ justifyContent: "center", alignItems: "center" }}>
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                  >
                     <IconContainer>{heartIcon(30)}</IconContainer>
                     <View style={{ position: "absolute" }}>
-                      <Text style={{ fontSize: 12 }}>{props.route.params.rate}</Text>
+                      <Text style={{ fontSize: 12 }}>
+                        {props.route.params.rate}
+                      </Text>
                     </View>
                   </View>
                 </View>
               </View>
 
-              <View style={{ justifyContent: "center", alignContent: "center", gap: 0, paddingBottom: 5, paddingHorizontal: 10 }}>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignContent: "center",
+                  gap: 0,
+                  paddingBottom: 5,
+                  paddingHorizontal: 10,
+                }}
+              >
                 <TextBox
                   viewSize={18}
                   fontSize={12}
@@ -180,18 +237,43 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   </View>
                 </View>
               </View>
-              <View style={{ height: 70, backgroundColor: "lightgray", borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
-                <TextBox icon={<FontAwesome5 name="icons" size={12} color="black" />} text={"Earn 100 Points on reservation"} />
+              <View
+                style={{
+                  height: 70,
+                  backgroundColor: "lightgray",
+                  borderRadius: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TextBox
+                  icon={<FontAwesome5 name="icons" size={12} color="black" />}
+                  text={"Earn 100 Points on reservation"}
+                />
               </View>
 
-              <PreviewComponent title={"Available"} onPress={() => alert("Not Implemented Yet")}>
+              <PreviewComponent
+                title={"Available"}
+                onPress={() => alert("Not Implemented Yet")}
+              >
                 {/* Needs to be a flatList */}
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10 }}>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{ gap: 10 }}
+                >
                   {availableList.map((available) => {
                     return (
                       <View
                         key={available.id}
-                        style={{ width: 60, height: 60, borderRadius: 10, backgroundColor: "gray", alignItems: "center", justifyContent: "center" }}
+                        style={{
+                          width: 60,
+                          height: 60,
+                          borderRadius: 10,
+                          backgroundColor: "gray",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                       >
                         <Text>{available.title}</Text>
                       </View>
@@ -200,11 +282,21 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                 </ScrollView>
               </PreviewComponent>
 
-              <PreviewComponent title={"Review"} onPress={() => alert("Not Implemented Yet")}>
+              <PreviewComponent
+                title={"Review"}
+                onPress={() => alert("Not Implemented Yet")}
+              >
                 {/* Needs to be like top 5 */}
                 <View style={{ gap: 20 }}>
                   {reviewList.map((review) => {
-                    return <ReviewBox key={review.id} title={review.title} text={review.text} rate={review.rate} />;
+                    return (
+                      <ReviewBox
+                        key={review.id}
+                        title={review.title}
+                        text={review.text}
+                        rate={review.rate}
+                      />
+                    );
                   })}
                 </View>
               </PreviewComponent>

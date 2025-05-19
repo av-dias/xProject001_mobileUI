@@ -4,11 +4,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView from "react-native-maps";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
-import { activityListHandler, markerHandler, renderActivityItem } from "./handler";
+import {
+  activityListHandler,
+  markerHandler,
+  renderActivityItem,
+} from "./handler";
 import BottomSheet from "../../components/bottomSheet";
 import { useEffect, useState } from "react";
-import { ActivityType } from "../../constants/models";
-import { hideNavBar } from "../../functions/hideNavBar";
+import { ActivityType } from "../../models/models";
+import { hideNavBar } from "../../utility/hideNavBar";
 
 type PropsWithChildren = {
   navigation: any;
@@ -42,10 +46,22 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
                 coordinate={markerItem.coordinates}
                 title={markerItem.title}
                 description={markerItem.type}
-                onPress={() => navigation.navigate("ActivityDetails", markerItem)}
+                onPress={() =>
+                  navigation.navigate("ActivityDetails", markerItem)
+                }
               >
-                <View style={{ width: 50, height: 50, borderRadius: 100, overflow: "hidden" }}>
-                  <Image style={{ flex: 1, width: "auto", height: "auto" }} source={markerItem.imageSrc}></Image>
+                <View
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 100,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    style={{ flex: 1, width: "auto", height: "auto" }}
+                    source={markerItem.imageSrc}
+                  ></Image>
                 </View>
               </Marker>
             );
@@ -56,7 +72,9 @@ const MapPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             <FlatList
               ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
               data={activityList}
-              renderItem={(activity) => renderActivityItem(activity, navigation)}
+              renderItem={(activity) =>
+                renderActivityItem(activity, navigation)
+              }
               contentContainerStyle={{}}
               onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
             />

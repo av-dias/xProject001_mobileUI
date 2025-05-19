@@ -20,3 +20,5 @@
 
 - 0.01
   - Initial drafts with mock application
+- 0.02
+  - Minor folder structure reorganization
