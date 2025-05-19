@@ -4,11 +4,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
 
-import { FavoriteType, ActivityType } from "../../constants/models";
+import { FavoriteType, ActivityType } from "../../models/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
 import storage from "../../constants/storage";
 import { useFocusEffect } from "@react-navigation/native";
-import { getAllUniqueFavorites, getFolderWithFavorites, getRawFavorites } from "../../functions/favorite";
+import {
+  getAllUniqueFavorites,
+  getFolderWithFavorites,
+  getRawFavorites,
+} from "../../storage/favoriteStorage";
 
 type PropsWithChildren = {
   navigation: any;

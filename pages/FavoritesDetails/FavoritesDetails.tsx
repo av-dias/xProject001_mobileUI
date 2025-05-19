@@ -5,11 +5,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import UsableScreen from "../../components/usableScreen";
 import BackButton from "../../components/backButton";
 
-import { ActivityType } from "../../constants/models";
+import { ActivityType } from "../../models/models";
 import { renderFavoriteItem } from "./handler";
 import storage from "../../constants/storage";
 import { useFocusEffect } from "@react-navigation/native";
-import { getAllUniqueFavorites } from "../../functions/favorite";
+import { getAllUniqueFavorites } from "../../storage/favoriteStorage";
 
 type PropsWithChildren = {
   navigation: any;
@@ -25,7 +25,9 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
         let tmpFavorites = await getAllUniqueFavorites(storage.favorite);
         if (tmpFavorites) {
           let favorites = tmpFavorites;
-          favorites = favorites.filter((f: { favorite: boolean }) => f.favorite == true);
+          favorites = favorites.filter(
+            (f: { favorite: boolean }) => f.favorite == true
+          );
           setFavoriteList(favorites);
         }
       }
@@ -37,8 +39,19 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <UsableScreen>
-        <View style={{ flexDirection: "row", alignItems: "center", marginVertical: -20, marginLeft: -15 }}>
-          <BackButton navigation={props.navigation} toPage="Favorites" isAbsolute={false} />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: -20,
+            marginLeft: -15,
+          }}
+        >
+          <BackButton
+            navigation={props.navigation}
+            toPage="Favorites"
+            isAbsolute={false}
+          />
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>Favorites</Text>
         </View>
         <View
@@ -52,9 +65,15 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
             }}
             numColumns={2}
             columnWrapperStyle={{ gap: 5, alignSelf: "center" }}
-            contentContainerStyle={{ alignItems: "flex-start", justifyContent: "space-between", gap: 5 }}
+            contentContainerStyle={{
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              gap: 5,
+            }}
             data={favoriteList}
-            renderItem={(activity) => renderFavoriteItem(activity, props.navigation, setFavoriteList)}
+            renderItem={(activity) =>
+              renderFavoriteItem(activity, props.navigation, setFavoriteList)
+            }
           />
         </View>
       </UsableScreen>

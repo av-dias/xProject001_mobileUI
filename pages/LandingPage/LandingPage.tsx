@@ -1,12 +1,16 @@
 import { View, Text, Pressable } from "react-native";
 import { ReactNode } from "react";
-import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
 
 import UsableScreen from "../../components/usableScreen";
 import InputBox from "../../components/InputBox";
 
-import { getFromStorage } from "../../functions/localStorage";
+import { getFromStorage } from "../../storage/baseStorage";
 import storage from "../../constants/storage";
 import TextBox from "../../components/textBox";
 
@@ -35,13 +39,19 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
               navigation.navigate("Login");
             }}
           >
-            <TextBox text={"Sign In"} icon={loginIcon(20)} iconPosition="right"></TextBox>
+            <TextBox
+              text={"Sign In"}
+              icon={loginIcon(20)}
+              iconPosition="right"
+            ></TextBox>
           </Pressable>
         </View>
         <View style={{ flex: 1, gap: 50 }}>
           <View style={{ flex: 1, gap: 20 }}>
             <View style={{ padding: 20, alignItems: "center" }}>
-              <View style={{ width: "50%", height: 150, backgroundColor: "gray" }}></View>
+              <View
+                style={{ width: "50%", height: 150, backgroundColor: "gray" }}
+              ></View>
             </View>
             <View style={{ height: 50 }}>
               <InputBox
@@ -55,11 +65,33 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
           </View>
           <View style={{ flex: 2 }}>
             <View style={{ flex: 1 }}>
-              <View style={{ width: "100%", height: 400, backgroundColor: "gray", justifyContent: "center", gap: 20 }}>
-                <Text style={{ textAlign: "center", justifyContent: "center", fontSize: 20 }}>
+              <View
+                style={{
+                  width: "100%",
+                  height: 400,
+                  backgroundColor: "gray",
+                  justifyContent: "center",
+                  gap: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    justifyContent: "center",
+                    fontSize: 20,
+                  }}
+                >
                   The best things in life are found by stumbling upon them.
                 </Text>
-                <Text style={{ textAlign: "center", justifyContent: "center", fontSize: 14 }}>We are here to help</Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    justifyContent: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  We are here to help
+                </Text>
               </View>
             </View>
           </View>

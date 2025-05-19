@@ -1,5 +1,8 @@
-import { ReviewType, AvailableType } from "../../constants/models";
-import { reviewListHandlerMock, availableListHandlerMock } from "../../constants/mockData";
+import { ReviewType, AvailableType } from "../../models/models";
+import {
+  reviewListHandlerMock,
+  availableListHandlerMock,
+} from "../../mocks/mockData";
 
 const reviewListHandler: ReviewType[] = reviewListHandlerMock;
 

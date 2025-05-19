@@ -1,5 +1,5 @@
-import { ActivityType, ReviewType, AvailableType, FavoriteType } from "./models";
-import key from "./key";
+import { ActivityType, ReviewType, AvailableType, FavoriteType } from "../models/models";
+import key from "../constants/key";
 
 let Image1 = require("../assets/image1.png");
 let Image2 = require("../assets/image2.png");

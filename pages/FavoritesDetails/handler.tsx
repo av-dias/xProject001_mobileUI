@@ -1,13 +1,17 @@
 import { View } from "react-native";
 
-import { favoriteListHandlerMock } from "../../constants/mockData";
+import { favoriteListHandlerMock } from "../../mocks/mockData";
 import { ListRenderItemInfo } from "react-native";
-import { ActivityType } from "../../constants/models";
+import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";
 import storage from "../../constants/storage";
-import { removeFavoriteToFolder } from "../../functions/favorite";
+import { removeFavoriteToFolder } from "../../storage/favoriteStorage";
 
-const renderFavoriteItem = (render: ListRenderItemInfo<ActivityType>, navigation: any, setFavoriteList: any) => (
+const renderFavoriteItem = (
+  render: ListRenderItemInfo<ActivityType>,
+  navigation: any,
+  setFavoriteList: any
+) => (
   <View style={{ width: "49%", aspectRatio: 1 }}>
     <ContentBox
       imageSrc={render.item.imageSrc}
