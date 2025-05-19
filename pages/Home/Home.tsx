@@ -42,7 +42,7 @@ type PropsWithChildren = {
 
 const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [showIconFilter, setShowIconFilter] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
   const [activityList, setActivityList] = useState<ActivityType[]>([
     ...activityListHandler,
@@ -60,6 +60,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
       async function checkUser() {
         let email = await getFromStorage(storage.email);
         if (email == "") setModalVisible(true);
+        else setModalVisible(false);
       }
       async function loadFavorites() {
         let favorites = await getAllUniqueFavorites(storage.favorite);

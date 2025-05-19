@@ -48,8 +48,8 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             </View>
             <View style={{ flex: 1, paddingHorizontal: 20 }}>
               <CustomPressable
-                onPress={() => {
-                  saveToStorage(storage.email, "email");
+                onPress={async () => {
+                  await saveToStorage(storage.email, "email");
                   navigation.navigate("Tabs");
                 }}
                 color="orange"
