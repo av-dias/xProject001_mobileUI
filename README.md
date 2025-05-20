@@ -22,3 +22,6 @@
   - Initial drafts with mock application
 - 0.02
   - Minor folder structure reorganization
+- 0.03
+  - Added new modular component AlertModal
+  - Refactored Filter Bar component
