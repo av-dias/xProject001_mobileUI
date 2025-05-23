@@ -1,39 +1,23 @@
-import {
-  View,
-  ScrollView,
-  FlatList,
-  Modal,
-  Alert,
-  Text,
-  Pressable,
-} from "react-native";
+import { View, FlatList } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AntDesign, Feather, Entypo, Ionicons } from "@expo/vector-icons";
 
 import UsableScreen from "../../components/usableScreen";
 import FilterBar from "../../components/filterBar";
-import InputBox from "../../components/InputBox";
-import ExpansionBar from "../../components/expansionBar";
 import AlertModal from "../../components/alertModal";
 
 import { renderActivityItem, activityListHandler } from "./handler";
 import { ActivityType } from "../../models/models";
-import { iconsfilter } from "../../constants/icons";
 import { getFromStorage } from "../../storage/baseStorage";
 import storage from "../../storage/storageKeys";
 import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../utility/hideNavBar";
-import BottomSheet from "../../components/bottomSheet";
 import { checkUpdates } from "../../utility/devUpdate";
 import {
-  addFavoriteFolder,
-  addItemToFavoriteFolder,
   getAllUniqueFavorites,
   getFavoriteFolders,
 } from "../../storage/favoriteStorage";
-import { TextInput } from "react-native-gesture-handler";
 import FavoritesBottomSheet from "../../components/favoritesBottomSheet";
 
 type PropsWithChildren = {
@@ -109,6 +93,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           <AlertModal
             navigation={navigation}
             title="Sign In to continue using the app"
+            setModalVisible={setModalVisible}
           ></AlertModal>
         )}
         <View style={{ flexDirection: "row", gap: 10 }}>
@@ -143,6 +128,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           setModalFavoritesVisible={setModalFavoritesVisible}
           setFolderName={setFolderName}
           setFavoriteList={setFavoriteList}
+          setNewFolderVisible={setNewFolderVisible}
         ></FavoritesBottomSheet>
       )}
     </SafeAreaView>

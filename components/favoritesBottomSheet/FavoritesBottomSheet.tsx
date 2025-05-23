@@ -1,21 +1,23 @@
 import { View, Text, Pressable, TextInput } from "react-native";
 import BottomSheet from "../bottomSheet";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 import { ActivityType } from "../../models/models";
 import {
   addFavoriteFolder,
   addItemToFavoriteFolder,
 } from "../../storage/favoriteStorage";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   newFolderVisible: boolean;
   favoriteList: string[];
   selectedAtivity: ActivityType | null;
   folderName: string | undefined;
-  setModalFavoritesVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setFolderName: React.Dispatch<React.SetStateAction<string | undefined>>;
-  setFavoriteList: React.Dispatch<React.SetStateAction<string[]>>;
+  setModalFavoritesVisible: Dispatch<SetStateAction<boolean>>;
+  setFolderName: Dispatch<SetStateAction<string | undefined>>;
+  setFavoriteList: Dispatch<SetStateAction<string[]>>;
+  setNewFolderVisible: Dispatch<SetStateAction<boolean>>;
 };
 
 export const FavoritesBottomSheet: React.FC<Props> = (props) => {
@@ -26,6 +28,8 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
           style={{ padding: 10, backgroundColor: "transparent" }}
           onPress={() => {
             props.setModalFavoritesVisible(false);
+            props.setNewFolderVisible(false);
+            props.setFolderName(undefined);
           }}
         >
           <AntDesign name="closecircleo" size={20} color="black" />
@@ -83,7 +87,7 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
         <View>
           <Pressable
             onPress={() => {
-              props.setModalFavoritesVisible(true);
+              props.setNewFolderVisible(true);
             }}
           >
             <View
@@ -160,6 +164,7 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
                           props.folderName,
                         ]);
                         addFavoriteFolder(storage.favorite, props.folderName);
+                        props.setFolderName(undefined);
                       } else {
                         alert("Please insert a folder name.");
                       }

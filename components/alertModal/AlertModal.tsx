@@ -1,13 +1,19 @@
 import { Alert, Modal, View, Text } from "react-native";
 import color from "../../constants/color";
 import CustomPressable from "../customPressable";
+import { Dispatch, SetStateAction } from "react";
 
 type AlertModalType = {
   navigation: any;
   title: String;
+  setModalVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export const AlertModal = ({ navigation, title }: AlertModalType) => {
+export const AlertModal = ({
+  navigation,
+  title,
+  setModalVisible,
+}: AlertModalType) => {
   return (
     <Modal
       transparent={true}
@@ -58,6 +64,7 @@ export const AlertModal = ({ navigation, title }: AlertModalType) => {
                 color={color.light.primary}
                 text="Start"
                 onPress={() => {
+                  setModalVisible(false);
                   navigation.navigate("Login");
                 }}
               />
