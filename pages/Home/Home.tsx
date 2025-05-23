@@ -21,7 +21,7 @@ import { renderActivityItem, activityListHandler } from "./handler";
 import { ActivityType } from "../../models/models";
 import { iconsfilter } from "../../constants/icons";
 import { getFromStorage } from "../../storage/baseStorage";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../utility/hideNavBar";

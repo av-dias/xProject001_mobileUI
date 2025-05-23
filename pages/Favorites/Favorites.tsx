@@ -6,7 +6,7 @@ import UsableScreen from "../../components/usableScreen";
 
 import { FavoriteType, ActivityType } from "../../models/models";
 import { renderFavoriteItem, favoriteListHandler } from "./handler";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 import { useFocusEffect } from "@react-navigation/native";
 import {
   getAllUniqueFavorites,

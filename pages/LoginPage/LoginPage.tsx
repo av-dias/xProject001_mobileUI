@@ -10,7 +10,7 @@ import UsableScreen from "../../components/usableScreen";
 import CustomPressable from "../../components/customPressable";
 
 import { saveToStorage } from "../../storage/baseStorage";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 
 type PropsWithChildren = {
   navigation: any;

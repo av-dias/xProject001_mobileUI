@@ -8,7 +8,19 @@ type Props = {
 
 const CustomPressable: React.FC<Props> = (props) => {
   return (
-    <Pressable style={{ backgroundColor: props.color, padding: 20, borderRadius: 20 }} onPress={props.onPress}>
+    <Pressable
+      style={({ pressed }) => [
+        {
+          backgroundColor: props.color,
+          padding: 20,
+          borderRadius: 20,
+          opacity: pressed ? props.onPress && 0.8 : 1,
+          marginHorizontal: pressed ? 1 : 0,
+          marginTop: pressed ? 1 : 0,
+        },
+      ]}
+      onPress={props.onPress}
+    >
       <Text style={{ textAlign: "center" }}>{props.text}</Text>
     </Pressable>
   );

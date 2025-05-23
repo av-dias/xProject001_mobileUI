@@ -1,4 +1,4 @@
-import storage from "../constants/storage";
+import storage from "../storage/storageKeys";
 import { getFromStorage, saveToStorage } from "../storage/baseStorage";
 
 const UPDATE_VERSION = "4";

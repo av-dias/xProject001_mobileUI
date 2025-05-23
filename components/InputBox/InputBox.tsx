@@ -11,11 +11,22 @@ type PropsWithChildren = {
 
 const InputBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ flex: 1, backgroundColor: "lightgray", borderRadius: 15, flexDirection: "row" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "lightgray",
+        borderRadius: 15,
+        flexDirection: "row",
+      }}
+    >
       <View style={{ paddingHorizontal: 10, justifyContent: "center" }}>
         <IconContainer>{props.icon}</IconContainer>
       </View>
-      <TextInput style={{ flex: 3 }} placeholder={props.placeholder} onSubmitEditing={props.onSubmitEditing}></TextInput>
+      <TextInput
+        style={{ flex: 3 }}
+        placeholder={props.placeholder}
+        onSubmitEditing={props.onSubmitEditing}
+      ></TextInput>
     </View>
   );
 };

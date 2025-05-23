@@ -4,7 +4,7 @@ import { favoriteListHandlerMock } from "../../mocks/mockData";
 import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 import { removeFavoriteToFolder } from "../../storage/favoriteStorage";
 
 const renderFavoriteItem = (

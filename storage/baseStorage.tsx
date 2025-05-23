@@ -1,5 +1,5 @@
 import * as SecureStore from "expo-secure-store";
-import storage from "../constants/storage";
+import storage from "./storageKeys";
 
 export async function saveToStorage(key: string, value: string) {
   await SecureStore.setItemAsync(key, value);
@@ -21,7 +21,9 @@ export async function removeFromStorage(key: string, id: string) {
   if (!currentValueString) return;
 
   let currentValueJson = JSON.parse(currentValueString);
-  currentValueJson = currentValueJson.filter((value: { id: string }) => value.id != id);
+  currentValueJson = currentValueJson.filter(
+    (value: { id: string }) => value.id != id
+  );
 
   await SecureStore.setItemAsync(key, JSON.stringify(currentValueJson));
 }

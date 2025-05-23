@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SafeAreaProvider, SafeAreaView, initialWindowMetrics } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useKeyboard } from "@react-native-community/hooks";
 
 import Home from "./pages/Home";
@@ -21,6 +21,9 @@ import FavoritesDetails from "./pages/FavoritesDetails";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+// TODO: should go to a config file
+export const navBarHeight = 50;
 
 function Tabs() {
   const keyboard = useKeyboard();
@@ -49,26 +52,54 @@ function Tabs() {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="dashboard" size={24} color="white" />
+          ),
+        }}
       />
-      <Tab.Screen name="ActivityDetails" component={ActivityDetails} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen
+        name="ActivityDetails"
+        component={ActivityDetails}
+        options={{ headerShown: false, tabBarButton: () => null }}
+      />
       {
         <Tab.Screen
           name="Map"
           component={MapPage}
-          options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="dashboard" size={24} color="white" />
+            ),
+          }}
         />
       }
       <Tab.Screen
         name="Favorites"
         component={Favorites}
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="dashboard" size={24} color="white" />
+          ),
+        }}
       />
-      <Tab.Screen name="FavoritesDetails" component={FavoritesDetails} options={{ headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen
+        name="FavoritesDetails"
+        component={FavoritesDetails}
+        options={{ headerShown: false, tabBarButton: () => null }}
+      />
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{ headerShown: false, tabBarIcon: ({ color, size }) => <MaterialIcons name="dashboard" size={24} color="white" /> }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="dashboard" size={24} color="white" />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
@@ -81,9 +112,21 @@ export default function App() {
         <NavigationContainer>
           <StatusBar style="auto" />
           <Stack.Navigator>
-            <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false, orientation: "portrait" }} />
-            <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false, orientation: "portrait" }} />
-            <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false, orientation: "portrait" }} />
+            <Stack.Screen
+              name="LandingPage"
+              component={LandingPage}
+              options={{ headerShown: false, orientation: "portrait" }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginPage}
+              options={{ headerShown: false, orientation: "portrait" }}
+            />
+            <Stack.Screen
+              name="Tabs"
+              component={Tabs}
+              options={{ headerShown: false, orientation: "portrait" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>

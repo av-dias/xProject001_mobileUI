@@ -11,7 +11,7 @@ import UsableScreen from "../../components/usableScreen";
 import InputBox from "../../components/InputBox";
 
 import { getFromStorage } from "../../storage/baseStorage";
-import storage from "../../constants/storage";
+import storage from "../../storage/storageKeys";
 import TextBox from "../../components/textBox";
 
 import { loginIcon } from "../../constants/icons";

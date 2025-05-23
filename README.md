@@ -25,3 +25,4 @@
 - 0.03
   - Added new modular components AlertModal; FavoritesBottomSheet
   - Refactored Filter Bar component
+  - Setup connection with local backend if available
