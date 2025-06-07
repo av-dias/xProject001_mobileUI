@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { activityListHandlerMock } from "../../mocks/mockData";
+import { activityListHandlerMock } from "../../mocks/data/activity/activityList";
 import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";

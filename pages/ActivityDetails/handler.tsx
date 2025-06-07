@@ -1,8 +1,6 @@
 import { ReviewType, AvailableType } from "../../models/models";
-import {
-  reviewListHandlerMock,
-  availableListHandlerMock,
-} from "../../mocks/mockData";
+import { reviewListHandlerMock } from "../../mocks/data/review/reviewList";
+import { availableListHandlerMock } from "../../mocks/data/activity/availableList";
 
 const reviewListHandler: ReviewType[] = reviewListHandlerMock;
 

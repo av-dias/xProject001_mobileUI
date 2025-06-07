@@ -1,4 +1,4 @@
-import { favoriteListHandlerMock } from "../../mocks/mockData";
+import { favoriteListHandlerMock } from "../../mocks/data/favorites/favoriteList";
 import { ImageSourcePropType, ListRenderItemInfo } from "react-native";
 import { ActivityType, FavoriteType } from "../../models/models";
 import { View, Text, Pressable } from "react-native";
