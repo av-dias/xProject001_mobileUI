@@ -18,6 +18,7 @@ import Favorites from "./pages/Favorites";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import color from "./constants/color";
 import FavoritesDetails from "./pages/FavoritesDetails";
+import AppContextProvider from "./contexts/appContext";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,24 +111,26 @@ export default function App() {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer>
-          <StatusBar style="auto" />
-          <Stack.Navigator>
-            <Stack.Screen
-              name="LandingPage"
-              component={LandingPage}
-              options={{ headerShown: false, orientation: "portrait" }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginPage}
-              options={{ headerShown: false, orientation: "portrait" }}
-            />
-            <Stack.Screen
-              name="Tabs"
-              component={Tabs}
-              options={{ headerShown: false, orientation: "portrait" }}
-            />
-          </Stack.Navigator>
+          <AppContextProvider>
+            <StatusBar style="auto" />
+            <Stack.Navigator>
+              <Stack.Screen
+                name="LandingPage"
+                component={LandingPage}
+                options={{ headerShown: false, orientation: "portrait" }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginPage}
+                options={{ headerShown: false, orientation: "portrait" }}
+              />
+              <Stack.Screen
+                name="Tabs"
+                component={Tabs}
+                options={{ headerShown: false, orientation: "portrait" }}
+              />
+            </Stack.Navigator>
+          </AppContextProvider>
         </NavigationContainer>
       </GestureHandlerRootView>
     </SafeAreaProvider>

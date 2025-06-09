@@ -33,6 +33,7 @@ const Profile: React.FC<PropsWithChildren> = ({ navigation }) => {
                 navigation.navigate("LandingPage");
               }}
             />
+            {/* Dev Test Only */}
             <ServerSyncContainer />
           </View>
           <View>

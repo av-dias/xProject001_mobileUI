@@ -1,14 +1,15 @@
-import { activeApi } from "../serviceSelector";
+import { apiRoute } from "../apiRoutes";
 
-export const FavoriteService = () => {
-  const serviceApi = activeApi;
-
+export const FavoriteApiService = (server: string) => {
+  // TODO - use Axios logic
   const list = () => {
-    return serviceApi.favoriteApi.list();
+    apiRoute(server).favoriteApi.favorites();
+    return [];
   };
 
   const details = () => {
-    return serviceApi.favoriteApi.details;
+    apiRoute(server).favoriteApi.favorite();
+    return {};
   };
 
   return { list, details };

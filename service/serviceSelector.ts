@@ -1,8 +1,7 @@
-import { mockApi } from "../mocks/mockApiService";
-import { ApiService } from "./apiService";
-import { api } from "./apiRoutes";
+import { mockApiService } from "../mocks/mockApiService";
+import { apiService, ApiService } from "./apiServices";
 
-// Assume this is set somewhere dynamically
-export let serverIsOnline = false;
-
-export const activeApi: ApiService = serverIsOnline ? api : mockApi;
+export const activeApi = (
+  isServerOnline: boolean,
+  server: string
+): ApiService => (isServerOnline ? apiService(server) : mockApiService);

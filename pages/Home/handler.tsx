@@ -2,7 +2,6 @@ import { View } from "react-native";
 import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";
-import { activityListHandlerMock } from "../../mocks/data/activity/activityList";
 import storage from "../../storage/storageKeys";
 import { getDayOfWeek } from "../../constants/calendar";
 import {
@@ -75,6 +74,4 @@ const renderActivityItem = (
   </View>
 );
 
-const activityListHandler = activityListHandlerMock;
-
-export { activityListHandler, renderActivityItem };
+export { renderActivityItem };

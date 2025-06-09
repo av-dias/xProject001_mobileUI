@@ -1,12 +1,12 @@
 import { View, FlatList } from "react-native";
-import { useState, useEffect, useRef } from "react";
+import { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
 import FilterBar from "../../components/filterBar";
 import AlertModal from "../../components/alertModal";
 
-import { renderActivityItem, activityListHandler } from "./handler";
+import { renderActivityItem } from "./handler";
 import { ActivityType } from "../../models/models";
 import { getFromStorage } from "../../storage/baseStorage";
 import storage from "../../storage/storageKeys";
@@ -19,24 +19,53 @@ import {
   getFavoriteFolders,
 } from "../../storage/favoriteStorage";
 import FavoritesBottomSheet from "../../components/favoritesBottomSheet";
+import { activeApi } from "../../service/serviceSelector";
+import { AppContext } from "../../contexts/appContext";
+import { activityListHandlerMock } from "../../mocks/data/activity/activityList";
 
 type PropsWithChildren = {
   navigation: any;
 };
 
 const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
+  /* Dev Zone Start */
+  const { serverConfig, isServerOnline } = useContext(AppContext);
+  const [server] = serverConfig;
+  /* Dev Zone End */
   const [showIconFilter, setShowIconFilter] = useState(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [modalFavoritesVisible, setModalFavoritesVisible] = useState(false);
-  const [activityList, setActivityList] = useState<ActivityType[]>([
-    ...activityListHandler,
-  ]);
+  const [activityList, setActivityList] = useState<ActivityType[]>([]);
   const [offset, setOffset] = useState(0);
   const [newFolderVisible, setNewFolderVisible] = useState(false);
   const [favoriteList, setFavoriteList] = useState<string[]>([]);
   const [folderName, setFolderName] = useState<string>();
   const [selectedAtivity, setSelectedActivity] = useState<ActivityType | null>(
     null
+  );
+
+  /**
+   * TODO: Remove this useEffect
+   * This is a temporary solution to fetch the activity list.
+   * For dev test only purpose
+   */
+  useFocusEffect(
+    React.useCallback(() => {
+      async function fetchData() {
+        const activityList = await activeApi(
+          isServerOnline,
+          server
+        ).activityService.list();
+
+        setActivityList(activityListHandlerMock);
+
+        if (isServerOnline) {
+          console.log("Fetching activity list from server...");
+          console.log(`Result is: ${activityList}`);
+        }
+      }
+      fetchData();
+    }, [server])
   );
 
   useFocusEffect(
@@ -73,7 +102,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
               return prev;
             }
           });
-          console.log("Updating favorite list...");
+          //console.log("Updating favorite list...");
         }
       }
       async function checkDevUpdates() {
@@ -82,7 +111,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
       checkDevUpdates();
       checkUser();
       loadFavorites();
-      console.log("Favorites loaded...");
+      //console.log("Favorites loaded...");
     }, [])
   );
 

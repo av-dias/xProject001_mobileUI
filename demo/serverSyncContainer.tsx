@@ -2,13 +2,12 @@
 /** LIVE DEMO AREA BEGIN PLEASE REMOVE THIS CODE */
 /*********************************************** */
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TextInput, View, Text } from "react-native";
 import CustomPressable from "../components/customPressable";
 import color from "../constants/color";
-import { saveToStorage } from "../storage/baseStorage";
-import storageKeys from "../storage/storageKeys";
 import { isValidString } from "../utility/inputValidation";
+import { AppContext } from "../contexts/appContext";
 
 export const defaultServerIp = "192.168.";
 // Local IP Regex
@@ -49,6 +48,9 @@ const fetchWithTimeout = (url: string, timeout = 5000): Promise<Response> =>
   ]);
 
 export const ServerSyncContainer = () => {
+  const { serverConfig } = useContext(AppContext);
+  const [, setServer] = serverConfig;
+
   const [serverSyncVisible, setServerSyncVisible] = useState(false);
   const [serverIp, setServerIp] = useState<string>(defaultServerIp);
   const [notificationMessage, setNotificationMessage] =
@@ -74,7 +76,9 @@ export const ServerSyncContainer = () => {
   useEffect(() => {
     const pingServer = async () => {
       try {
-        const response = await fetchWithTimeout(`${serverIp}:8080/health`);
+        const response = await fetchWithTimeout(
+          `http://${serverIp}:8080/health`
+        );
 
         if (!response.ok) {
           setServerIsAvailable({
@@ -90,7 +94,7 @@ export const ServerSyncContainer = () => {
         setServerIsAvailable({
           visible: true,
           message: serverIsAvailable.message?.concat(
-            `Server is healthy. ${data}`
+            `\nConnected Successfully. ${data.message}`
           ),
           type: "succ",
         });
@@ -146,7 +150,11 @@ export const ServerSyncContainer = () => {
                   type: "succ",
                   message: "Server address successfully stored.",
                 });
-                saveToStorage(storageKeys.devOnlyServerIp, serverIp);
+
+                // Set server IP in context
+                // This will be used by the app to make API calls
+                setServer(serverIp);
+
                 setServerIsAvailable({
                   visible: true,
                   message: "Trying to ping server...",

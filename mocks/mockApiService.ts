@@ -1,18 +1,22 @@
-import { ApiService } from "../service/apiService";
-import { activityListHandlerMock } from "./data/activity/activityList";
-import { favoriteListHandlerMock } from "./data/favorites/favoriteList";
-import { reviewListHandlerMock } from "./data/review/reviewList";
+import { ApiService } from "../service/apiServices";
 export const baseUrl = "localhost";
 
-export const mockApi: ApiService = {
-  activityApi: {
-    list: () => activityListHandlerMock,
+// Activity Mocks
+import { activityListHandlerMock } from "./data/activity/activityList";
+// Favorites Mocks
+import { favoriteListHandlerMock } from "./data/favorites/favoriteList";
+// Review Mocks
+import { reviewListHandlerMock } from "./data/review/reviewList";
+
+export const mockApiService: ApiService = {
+  activityService: {
+    list: () => Promise.resolve(activityListHandlerMock),
   },
-  favoriteApi: {
+  favoriteService: {
     list: () => favoriteListHandlerMock,
     details: () => {},
   },
-  reviewApi: {
+  reviewService: {
     list: () => reviewListHandlerMock,
   },
 };

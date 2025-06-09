@@ -1,10 +1,10 @@
-import { activeApi } from "../serviceSelector";
+import { apiRoute } from "../apiRoutes";
 
-export const ReviewService = () => {
-  const serviceApi = activeApi;
-
+export const ReviewApiService = (server: string) => {
   const list = () => {
-    return serviceApi.reviewApi.list();
+    // TODO - use Axios logic
+    apiRoute(server).reviewApi.reviews();
+    return [];
   };
 
   return { list };
