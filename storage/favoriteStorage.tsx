@@ -67,8 +67,3 @@ export const removeFavoriteToFolder = async (key: string, id: string) => {
 
   await saveToStorage(key, JSON.stringify(favorites));
 };
-
-/*
-  { Favorites: []}
-  { Summer:    []}
-*/

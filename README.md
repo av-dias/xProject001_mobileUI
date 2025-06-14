@@ -26,3 +26,5 @@
   - Added new modular components AlertModal; FavoritesBottomSheet
   - Refactored Filter Bar component
   - Setup connection with local backend if available
+- 0.04
+  - Centralized base axios instance

@@ -1,6 +1,7 @@
 export default color = {
   light: {
     red: "#E34444",
+    warning:"pink",
     primary: "#FFCC80",
     gray:"gray",
     blue:"lightblue",

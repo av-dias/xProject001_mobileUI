@@ -48,7 +48,7 @@ const fetchWithTimeout = (url: string, timeout = 5000): Promise<Response> =>
   ]);
 
 export const ServerSyncContainer = () => {
-  const { serverConfig } = useContext(AppContext);
+  const { serverConfig, isServerOnline } = useContext(AppContext);
   const [, setServer] = serverConfig;
 
   const [serverSyncVisible, setServerSyncVisible] = useState(false);
@@ -91,10 +91,15 @@ export const ServerSyncContainer = () => {
         }
 
         const data = await response.json();
+
+        if (!data?.message) {
+          data.message = "No message from server.";
+        }
+
         setServerIsAvailable({
           visible: true,
           message: serverIsAvailable.message?.concat(
-            `\nConnected Successfully. ${data.message}`
+            `\nConnected Successfully. ${data?.message}`
           ),
           type: "succ",
         });
@@ -186,6 +191,18 @@ export const ServerSyncContainer = () => {
               <Text>{serverIsAvailable.message}</Text>
             </View>
           )}
+        </>
+      )}
+      {isServerOnline && (
+        <>
+          <CustomPressable
+            color={color.light.warning}
+            text={"Disconnect Server"}
+            onPress={() => {
+              setServer("");
+              setServerIsAvailable({ visible: false });
+            }}
+          />
         </>
       )}
     </>

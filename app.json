@@ -25,7 +25,11 @@
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.avdias.RN001",
-      "config": { "googleMaps": { "apiKey": "AIzaSyAemtyeJvWmrM3Pq4555RJrMJHVN2fUvCY" } }
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAemtyeJvWmrM3Pq4555RJrMJHVN2fUvCY"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +38,16 @@
       "eas": {
         "projectId": "5bb599c1-a0fe-4f37-b5f5-c91956aec41b"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true 
+          }
+        }
+      ]
+    ]
   }
 }

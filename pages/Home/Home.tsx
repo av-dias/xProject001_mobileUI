@@ -21,7 +21,6 @@ import {
 import FavoritesBottomSheet from "../../components/favoritesBottomSheet";
 import { activeApi } from "../../service/serviceSelector";
 import { AppContext } from "../../contexts/appContext";
-import { activityListHandlerMock } from "../../mocks/data/activity/activityList";
 
 type PropsWithChildren = {
   navigation: any;
@@ -48,6 +47,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
    * TODO: Remove this useEffect
    * This is a temporary solution to fetch the activity list.
    * For dev test only purpose
+   * Use tanStack Query or React Query
    */
   useFocusEffect(
     React.useCallback(() => {
@@ -55,9 +55,11 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         const activityList = await activeApi(
           isServerOnline,
           server
-        ).activityService.list();
+        ).activityService.activities();
 
-        setActivityList(activityListHandlerMock);
+        // In this test, we are using a mock handler
+        // And printing activityList to console
+        setActivityList(activityList);
 
         if (isServerOnline) {
           console.log("Fetching activity list from server...");

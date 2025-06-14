@@ -2,15 +2,15 @@ import { apiRoute } from "../apiRoutes";
 
 export const FavoriteApiService = (server: string) => {
   // TODO - use Axios logic
-  const list = () => {
+  const favorites = () => {
     apiRoute(server).favoriteApi.favorites();
     return [];
   };
 
-  const details = () => {
+  const favorite = () => {
     apiRoute(server).favoriteApi.favorite();
     return {};
   };
 
-  return { list, details };
+  return { favorites, favorite };
 };

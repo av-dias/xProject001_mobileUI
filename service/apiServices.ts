@@ -13,16 +13,16 @@ export interface ApiService {
 }
 
 export interface ActivityService {
-  list: () => Promise<any[]>;
+  activities: () => Promise<any[]>;
 }
 
 export interface FavoriteService {
-  list: () => any[];
-  details: () => any;
+  favorites: () => any[];
+  favorite: () => any;
 }
 
 export interface ReviewService {
-  list: () => any[];
+  reviews: () => any[];
 }
 
 export const apiService = (server: string): ApiService => ({

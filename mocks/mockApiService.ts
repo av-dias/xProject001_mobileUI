@@ -10,13 +10,13 @@ import { reviewListHandlerMock } from "./data/review/reviewList";
 
 export const mockApiService: ApiService = {
   activityService: {
-    list: () => Promise.resolve(activityListHandlerMock),
+    activities: () => Promise.resolve(activityListHandlerMock),
   },
   favoriteService: {
-    list: () => favoriteListHandlerMock,
-    details: () => {},
+    favorites: () => favoriteListHandlerMock,
+    favorite: () => {},
   },
   reviewService: {
-    list: () => reviewListHandlerMock,
+    reviews: () => reviewListHandlerMock,
   },
 };
