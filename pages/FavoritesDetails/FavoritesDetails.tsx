@@ -1,4 +1,4 @@
-import { View, ScrollView, FlatList, Modal, Alert, Text } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -7,9 +7,7 @@ import BackButton from "../../components/backButton";
 
 import { ActivityType } from "../../models/models";
 import { renderFavoriteItem } from "./handler";
-import storage from "../../storage/storageKeys";
 import { useFocusEffect } from "@react-navigation/native";
-import { getAllUniqueFavorites } from "../../storage/favoriteStorage";
 
 type PropsWithChildren = {
   navigation: any;
@@ -17,23 +15,23 @@ type PropsWithChildren = {
 };
 
 const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
-  const [favoriteList, setFavoriteList] = useState<ActivityType[] | null>(null);
+  const [favoriteList, setFavoriteList] = useState<ActivityType[] | null>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [folderName, setFolderName] = useState<string>();
 
   useFocusEffect(
     React.useCallback(() => {
       async function getFavorites() {
-        let tmpFavorites = await getAllUniqueFavorites(storage.favorite);
-        if (tmpFavorites) {
-          let favorites = tmpFavorites;
-          favorites = favorites.filter(
-            (f: { favorite: boolean }) => f.favorite == true
-          );
-          setFavoriteList(favorites);
-        }
+        setFavoriteList(props.route.params.list);
+        setFolderName(props.route.params.folder);
+        setIsLoading(false);
       }
+      setIsLoading(true);
+      setFavoriteList([]);
+      setFolderName("");
       getFavorites();
       console.log("Loading favorites details...");
-    }, [])
+    }, [props.route.params])
   );
 
   return (
@@ -43,7 +41,6 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginVertical: -20,
             marginLeft: -15,
           }}
         >
@@ -52,29 +49,31 @@ const FavoritesDetails: React.FC<PropsWithChildren> = (props) => {
             toPage="Favorites"
             isAbsolute={false}
           />
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>Favorites</Text>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>{folderName}</Text>
         </View>
         <View
           style={{
             flex: 1,
           }}
         >
-          <FlatList
-            style={{
-              flex: 1,
-            }}
-            numColumns={2}
-            columnWrapperStyle={{ gap: 5, alignSelf: "center" }}
-            contentContainerStyle={{
-              alignItems: "flex-start",
-              justifyContent: "space-between",
-              gap: 5,
-            }}
-            data={favoriteList}
-            renderItem={(activity) =>
-              renderFavoriteItem(activity, props.navigation, setFavoriteList)
-            }
-          />
+          {!isLoading && (
+            <FlatList
+              style={{
+                flex: 1,
+              }}
+              numColumns={2}
+              columnWrapperStyle={{ gap: 5, alignSelf: "center" }}
+              contentContainerStyle={{
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: 5,
+              }}
+              data={favoriteList}
+              renderItem={(activity) =>
+                renderFavoriteItem(activity, props.navigation, setFavoriteList)
+              }
+            />
+          )}
         </View>
       </UsableScreen>
     </SafeAreaView>

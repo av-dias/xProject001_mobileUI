@@ -7,18 +7,32 @@ export const getFavoriteFolders = async (key: string) => {
 
 export const getRawFavorites = async (key: string) => {
   let favorites = await getFromStorage(key);
-  if (!favorites) return { favorites: [] };
-  let favJSON = JSON.parse(favorites);
-  return favJSON;
+  if (!favorites) return {};
+  try {
+    return JSON.parse(favorites);
+  } catch (e) {
+    console.error("Failed to parse favorites JSON:", e);
+    return {};
+  }
 };
 
 export const getFolderWithFavorites = async (key: string) => {
   let favorites = await getFromStorage(key);
-  if (!favorites) return { favorites: [] };
-  let favJSON = JSON.parse(favorites);
+  if (!favorites) return [];
+  let favJSON;
+  try {
+    favJSON = JSON.parse(favorites);
+  } catch (e) {
+    console.error("Failed to parse favorites JSON:", e);
+    return [];
+  }
   let favoritesByFolder: { activityList: any; id: string; name: string }[] = [];
-  Object.keys(favJSON).forEach((fav) => {
-    favoritesByFolder.push({ activityList: favJSON[fav], id: fav, name: fav });
+  Object.keys(favJSON).forEach((folder) => {
+    favoritesByFolder.push({
+      activityList: favJSON[folder],
+      id: folder,
+      name: folder,
+    });
   });
   return favoritesByFolder;
 };
@@ -26,14 +40,15 @@ export const getFolderWithFavorites = async (key: string) => {
 export const getAllUniqueFavorites = async (key: string) => {
   let favorites = await getRawFavorites(key);
   let keys = await getFavoriteFolders(key);
-  let listOfUnirqueFavorites: any[] = [];
+  let listOfUniqueFavorites: any[] = [];
 
-  keys.map(
-    (key) =>
-      (listOfUnirqueFavorites = listOfUnirqueFavorites.concat(favorites[key]))
-  );
+  keys.forEach((folderKey) => {
+    listOfUniqueFavorites = listOfUniqueFavorites.concat(
+      favorites[folderKey] || []
+    );
+  });
 
-  return listOfUnirqueFavorites;
+  return listOfUniqueFavorites;
 };
 
 export const addItemToFavoriteFolder = async (
@@ -42,7 +57,7 @@ export const addItemToFavoriteFolder = async (
   folder: string
 ) => {
   let favorites = await getRawFavorites(key);
-  favorites[folder] = [...favorites[folder], item];
+  favorites[folder] = [...(favorites[folder] || []), item];
   await saveToStorage(key, JSON.stringify(favorites));
 };
 
@@ -58,12 +73,11 @@ export const addFavoriteFolder = async (key: string, folder: string) => {
 export const removeFavoriteToFolder = async (key: string, id: string) => {
   let favorites = await getRawFavorites(key);
   let keys = await getFavoriteFolders(key);
-  keys.forEach(
-    (key) =>
-      (favorites[key] = favorites[key].filter(
-        (favItem: { id: string }) => favItem.id != id
-      ))
-  );
+  keys.forEach((folderKey) => {
+    favorites[folderKey] = favorites[folderKey].filter(
+      (favId: string) => favId !== id
+    );
+  });
 
   await saveToStorage(key, JSON.stringify(favorites));
 };

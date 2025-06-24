@@ -17,8 +17,14 @@ export interface ActivityService {
 }
 
 export interface FavoriteService {
-  favorites: () => any[];
+  favorites: () => Promise<any[]>;
   favorite: () => any;
+  favoriteFolders: () => Promise<any[]>;
+  addFavorite: (id: string, folder: string) => Promise<void>;
+  addFavoriteFolder: (folder: string) => Promise<void>;
+  removeFavorite: (id: string) => Promise<void>;
+  addFavoriteToFolder: (id: string, folder: string) => Promise<void>;
+  folderedFavorites: () => Promise<any[]>;
 }
 
 export interface ReviewService {

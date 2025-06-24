@@ -90,7 +90,11 @@ function Tabs() {
       <Tab.Screen
         name="FavoritesDetails"
         component={FavoritesDetails}
-        options={{ headerShown: false, tabBarButton: () => null }}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          unmountOnBlur: true,
+        }}
       />
       <Tab.Screen
         name="Profile"

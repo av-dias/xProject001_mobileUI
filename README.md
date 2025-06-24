@@ -23,8 +23,10 @@
 - 0.02
   - Minor folder structure reorganization
 - 0.03
-  - Added new modular components AlertModal; FavoritesBottomSheet
+  - Added new modular components AlertModal and FavoritesBottomSheet
   - Refactored Filter Bar component
   - Setup connection with local backend if available
 - 0.04
   - Centralized base axios instance
+- 0.05
+  - Refactored favorite asyncStorage logic to the Mock Api Service

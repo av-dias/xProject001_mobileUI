@@ -8,6 +8,10 @@ import {
   addItemToFavoriteFolder,
   removeFavoriteToFolder,
 } from "../../storage/favoriteStorage";
+import { activeApi } from "../../service/serviceSelector";
+import { useContext } from "react";
+import { AppContext } from "../../contexts/appContext";
+import { DEFAULT_FAVORITE_FOLDER } from "../../constants/enums";
 
 const getTimeFromTimeTable = (time: string) => {
   let timetableJSON = JSON.parse(time);
@@ -27,7 +31,9 @@ const renderActivityItem = (
   navigation: any,
   setActivityList: any,
   setModalFavoritesVisible: any,
-  setSelectedActivity: any
+  setSelectedActivity: any,
+  isServerOnline: boolean,
+  server: string
 ) => (
   <View style={{ width: "100%", height: 205 }}>
     <ContentBox
@@ -39,35 +45,35 @@ const renderActivityItem = (
       rate={render.item.rate}
       navigation={() => navigation.navigate("ActivityDetails", render.item)}
       onFavorite={async () => {
-        setModalFavoritesVisible(true);
-        await addItemToFavoriteFolder(
-          storage.favorite,
-          { ...render.item, favorite: true },
-          "favorites"
+        // Make request to server
+        await activeApi(isServerOnline, server).favoriteService.addFavorite(
+          render.item.id,
+          DEFAULT_FAVORITE_FOLDER
         );
-        setSelectedActivity(render.item);
-        let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
-        render.item.favorite = true;
-        setActivityList((lastState: any[]) => {
-          {
-            let prev = [...lastState];
-            prev.splice(itemIndex - 1, 1, render.item);
-            return prev;
-          }
-        });
+        // Update UI using setState for responsiveness
+        setActivityList((prev: ActivityType[]) =>
+          prev.map((activity) =>
+            activity.id === render.item.id
+              ? { ...activity, favorite: true }
+              : activity
+          )
+        );
+        // Show Favorite Modal
+        setModalFavoritesVisible(true);
+        // Set Select Favorite to Save on Folder
+        setSelectedActivity(render.item.id);
       }}
       onUnFavorite={async () => {
-        //await addToStorage(storage.favorite, { ...render.item, favorite: true });
-        await removeFavoriteToFolder(storage.favorite, render.item.id);
-        let itemIndex = Number(render.item.id.replace(/^\D+/g, ""));
-        render.item.favorite = false;
-        setActivityList((lastState: any[]) => {
-          {
-            let prev = [...lastState];
-            prev.splice(itemIndex - 1, 1, render.item);
-            return prev;
-          }
-        });
+        await activeApi(isServerOnline, server).favoriteService.removeFavorite(
+          render.item.id
+        );
+        setActivityList((prev: ActivityType[]) =>
+          prev.map((activity) =>
+            activity.id === render.item.id
+              ? { ...activity, favorite: false }
+              : activity
+          )
+        );
       }}
       favorite={render.item.favorite}
     />

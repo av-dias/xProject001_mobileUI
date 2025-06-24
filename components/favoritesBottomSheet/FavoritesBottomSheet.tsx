@@ -2,51 +2,67 @@ import { View, Text, Pressable, TextInput } from "react-native";
 import BottomSheet from "../bottomSheet";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import storage from "../../storage/storageKeys";
-import { ActivityType } from "../../models/models";
-import {
-  addFavoriteFolder,
-  addItemToFavoriteFolder,
-} from "../../storage/favoriteStorage";
+import { addFavoriteFolder } from "../../storage/favoriteStorage";
 import { Dispatch, SetStateAction } from "react";
+import { activeApi } from "../../service/serviceSelector";
 
 type Props = {
   newFolderVisible: boolean;
   favoriteList: string[];
-  selectedAtivity: ActivityType | null;
+  selectedAtivity: string | undefined;
   folderName: string | undefined;
   setModalFavoritesVisible: Dispatch<SetStateAction<boolean>>;
   setFolderName: Dispatch<SetStateAction<string | undefined>>;
   setFavoriteList: Dispatch<SetStateAction<string[]>>;
   setNewFolderVisible: Dispatch<SetStateAction<boolean>>;
+  isServerOnline: boolean;
+  server: string;
 };
 
-export const FavoritesBottomSheet: React.FC<Props> = (props) => {
+export const FavoritesBottomSheet: React.FC<Props> = ({
+  newFolderVisible,
+  favoriteList,
+  selectedAtivity,
+  folderName,
+  setModalFavoritesVisible,
+  setFolderName,
+  setFavoriteList,
+  setNewFolderVisible,
+  isServerOnline,
+  server,
+}) => {
   return (
     <BottomSheet color={"lightgray"}>
       <View style={{ paddingHorizontal: 5, alignItems: "flex-end" }}>
         <Pressable
           style={{ padding: 10, backgroundColor: "transparent" }}
           onPress={() => {
-            props.setModalFavoritesVisible(false);
-            props.setNewFolderVisible(false);
-            props.setFolderName(undefined);
+            setModalFavoritesVisible(false);
+            setNewFolderVisible(false);
+            setFolderName(undefined);
           }}
         >
           <AntDesign name="closecircleo" size={20} color="black" />
         </Pressable>
       </View>
       <View style={{ flex: 1, padding: 10, paddingTop: 5, gap: 10 }}>
-        {props.favoriteList &&
-          props.favoriteList.map((folder: string) => (
+        {favoriteList &&
+          favoriteList.map((folder: string) => (
             <Pressable
               key={"Fav" + folder}
               onPress={async () => {
-                props.setModalFavoritesVisible(false);
-                await addItemToFavoriteFolder(
-                  storage.favorite,
-                  props.selectedAtivity,
-                  folder
-                );
+                if (selectedAtivity) {
+                  setModalFavoritesVisible(false);
+                  await activeApi(
+                    isServerOnline,
+                    server
+                  ).favoriteService.addFavoriteToFolder(
+                    selectedAtivity,
+                    folder
+                  );
+                } else {
+                  alert("No activity selected.");
+                }
               }}
             >
               <View
@@ -77,7 +93,7 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
                 >
                   <View style={{ padding: 5 }}>
                     <Text style={{ fontWeight: "bold" }}>
-                      {folder.toUpperCase()}
+                      {folder?.toUpperCase()}
                     </Text>
                   </View>
                 </View>
@@ -87,7 +103,7 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
         <View>
           <Pressable
             onPress={() => {
-              props.setNewFolderVisible(true);
+              setNewFolderVisible(true);
             }}
           >
             <View
@@ -104,10 +120,10 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
             </View>
           </Pressable>
         </View>
-        {props.newFolderVisible && (
+        {newFolderVisible && (
           <Pressable
             onPress={() => {
-              props.setModalFavoritesVisible(false);
+              setModalFavoritesVisible(false);
             }}
           >
             <View
@@ -139,7 +155,7 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
                 <View style={{ padding: 5, paddingBottom: 0 }}>
                   <TextInput
                     onChangeText={(text) => {
-                      props.setFolderName(text);
+                      setFolderName(text);
                     }}
                     placeholder="Folder Name"
                   ></TextInput>
@@ -158,13 +174,13 @@ export const FavoritesBottomSheet: React.FC<Props> = (props) => {
                   <Pressable
                     style={{ padding: 5, backgroundColor: "transparent" }}
                     onPress={async () => {
-                      if (props.folderName) {
-                        props.setFavoriteList((prev: any) => [
-                          ...prev,
-                          props.folderName,
-                        ]);
-                        addFavoriteFolder(storage.favorite, props.folderName);
-                        props.setFolderName(undefined);
+                      if (folderName) {
+                        setFavoriteList((prev: any) => [...prev, folderName]);
+                        await activeApi(
+                          isServerOnline,
+                          server
+                        ).favoriteService.addFavoriteFolder(folderName);
+                        setFolderName(undefined);
                       } else {
                         alert("Please insert a folder name.");
                       }

@@ -22,10 +22,12 @@ const renderFavoriteItem = (
   >
     <Pressable
       style={{ width: "100%", aspectRatio: 1 }}
-      onPress={() => {
-        navigation.navigate("FavoritesDetails", render.item.activityList);
-        navigation.setParams(render.item.activityList);
-      }}
+      onPress={() =>
+        navigation.navigate("FavoritesDetails", {
+          list: render.item.activityList,
+          folder: render.item.name,
+        })
+      }
     >
       <View
         style={{

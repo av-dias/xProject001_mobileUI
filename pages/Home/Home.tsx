@@ -14,13 +14,10 @@ import React from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { hideNavBar } from "../../utility/hideNavBar";
 import { checkUpdates } from "../../utility/devUpdate";
-import {
-  getAllUniqueFavorites,
-  getFavoriteFolders,
-} from "../../storage/favoriteStorage";
 import FavoritesBottomSheet from "../../components/favoritesBottomSheet";
 import { activeApi } from "../../service/serviceSelector";
 import { AppContext } from "../../contexts/appContext";
+import { DEFAULT_FAVORITE_FOLDER } from "../../constants/enums";
 
 type PropsWithChildren = {
   navigation: any;
@@ -39,9 +36,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
   const [newFolderVisible, setNewFolderVisible] = useState(false);
   const [favoriteList, setFavoriteList] = useState<string[]>([]);
   const [folderName, setFolderName] = useState<string>();
-  const [selectedAtivity, setSelectedActivity] = useState<ActivityType | null>(
-    null
-  );
+  const [selectedAtivity, setSelectedActivity] = useState<string>();
 
   /**
    * TODO: Remove this useEffect
@@ -51,14 +46,44 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
    */
   useFocusEffect(
     React.useCallback(() => {
-      async function fetchData() {
-        const activityList = await activeApi(
+      async function loadLocalActivityFavorites(activityList: ActivityType[]) {
+        let favorites = await activeApi(
+          isServerOnline,
+          server
+        ).favoriteService.favorites();
+
+        if (favorites) {
+          return activityList.map((activity) => {
+            if (favorites.includes(activity.id)) {
+              return { ...activity, favorite: true };
+            }
+            return activity;
+          });
+        }
+
+        return activityList;
+      }
+      async function fetchFavorities() {
+        let favoriteFolders = await activeApi(
+          isServerOnline,
+          server
+        ).favoriteService.favoriteFolders();
+
+        setFavoriteList(
+          favoriteFolders.filter((folder) => folder !== DEFAULT_FAVORITE_FOLDER)
+        );
+      }
+
+      async function fetchActivities() {
+        let activityList = await activeApi(
           isServerOnline,
           server
         ).activityService.activities();
 
-        // In this test, we are using a mock handler
-        // And printing activityList to console
+        // Local Dev use only
+        if (!isServerOnline)
+          activityList = await loadLocalActivityFavorites(activityList);
+
         setActivityList(activityList);
 
         if (isServerOnline) {
@@ -66,7 +91,8 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           console.log(`Result is: ${activityList}`);
         }
       }
-      fetchData();
+      fetchActivities();
+      fetchFavorities();
     }, [server])
   );
 
@@ -77,43 +103,11 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         if (email == "") setModalVisible(true);
         else setModalVisible(false);
       }
-      async function loadFavorites() {
-        let favorites = await getAllUniqueFavorites(storage.favorite);
-        let resFavoritesList = await getFavoriteFolders(storage.favorite);
-
-        setFavoriteList(resFavoritesList);
-
-        if (favorites) {
-          setActivityList((lastValue) => {
-            {
-              let prev = [...lastValue];
-              let listIndex: string[] = [];
-
-              favorites.forEach((fav: ActivityType) => {
-                listIndex.push(fav.id);
-              });
-
-              prev = prev.map((item) => {
-                if (listIndex.includes(item.id)) {
-                  return { ...item, favorite: true };
-                } else {
-                  return { ...item, favorite: false };
-                }
-              });
-
-              return prev;
-            }
-          });
-          //console.log("Updating favorite list...");
-        }
-      }
       async function checkDevUpdates() {
         checkUpdates();
       }
       checkDevUpdates();
       checkUser();
-      loadFavorites();
-      //console.log("Favorites loaded...");
     }, [])
   );
 
@@ -144,7 +138,9 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
               navigation,
               setActivityList,
               setModalFavoritesVisible,
-              setSelectedActivity
+              setSelectedActivity,
+              isServerOnline,
+              server
             )
           }
           onScroll={(e) => hideNavBar(e, setOffset, offset, navigation)}
@@ -160,6 +156,8 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
           setFolderName={setFolderName}
           setFavoriteList={setFavoriteList}
           setNewFolderVisible={setNewFolderVisible}
+          isServerOnline={isServerOnline}
+          server={server}
         ></FavoritesBottomSheet>
       )}
     </SafeAreaView>

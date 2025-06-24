@@ -9,6 +9,12 @@ export interface ActivityRoute {
 export interface FavoriteRoute {
   favorites: () => string;
   favorite: () => string;
+  favoriteFolders: () => string;
+  addFavorite: () => string;
+  addFavoriteFolder: () => string;
+  removeFavorite: () => string;
+  addFavoriteToFolder: () => string;
+  folderedFavorites: () => string;
 }
 
 export interface ReviewRoute {
@@ -32,6 +38,12 @@ export const apiRoute = (server: string): ApiRoute => ({
   favoriteApi: {
     favorites: () => server + "/favorities/",
     favorite: () => server + "/favorite/",
+    favoriteFolders: () => server + "/favorite/folders",
+    addFavorite: () => server + "favorite/",
+    addFavoriteFolder: () => server + "favorite/folders",
+    removeFavorite: () => server + "favorite/",
+    addFavoriteToFolder: () => server + "favorite/folder",
+    folderedFavorites: () => server + "favorites/folder",
   },
   reviewApi: {
     reviews: () => server + "/reviews/",

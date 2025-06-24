@@ -19,36 +19,87 @@ type Props = {
   rate: number;
   imageSrc: ImageSourcePropType;
   navigation: any;
-  onFavorite?: any;
+  onFavorite?: () => Promise<void>;
   favorite: boolean;
   onUnFavorite?: any;
 };
 
 const ContentBox: React.FC<Props> = (props) => {
   return (
-    <View style={{ flex: 1, width: "100%", backgroundColor: "gray", borderRadius: 20 }}>
+    <View
+      style={{
+        flex: 1,
+        width: "100%",
+        backgroundColor: "gray",
+        borderRadius: 20,
+      }}
+    >
       <View style={{ flex: 1 }}>
         <Pressable onPress={props.navigation}>
           <ImageContainer imageSrc={props.imageSrc} />
-          <View style={{ position: "absolute", padding: 10, width: "100%", height: "100%", justifyContent: "space-between" }}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap" }}>
-              <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+          <View
+            style={{
+              position: "absolute",
+              padding: 10,
+              width: "100%",
+              height: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: color.light.grayBlur,
+                  borderRadius: 20,
+                  paddingVertical: 5,
+                  paddingHorizontal: 10,
+                }}
+              >
                 <TextBox text={props.title}></TextBox>
               </View>
               {props.timetable && (
-                <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                <View
+                  style={{
+                    backgroundColor: color.light.grayBlur,
+                    borderRadius: 20,
+                    paddingVertical: 5,
+                    paddingHorizontal: 10,
+                  }}
+                >
                   <TextBox text={props.timetable}></TextBox>
                 </View>
               )}
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <View style={{ flexDirection: "row", gap: 10 }}>
                 {props.location && (
-                  <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                  <View
+                    style={{
+                      backgroundColor: color.light.grayBlur,
+                      borderRadius: 20,
+                      paddingVertical: 5,
+                      paddingHorizontal: 10,
+                    }}
+                  >
                     <TextBox text={props.location}></TextBox>
                   </View>
                 )}
-                <View style={{ backgroundColor: color.light.grayBlur, borderRadius: 20, paddingVertical: 5, paddingHorizontal: 10 }}>
+                <View
+                  style={{
+                    backgroundColor: color.light.grayBlur,
+                    borderRadius: 20,
+                    paddingVertical: 5,
+                    paddingHorizontal: 10,
+                  }}
+                >
                   <TextBox text={props.price + "€"}></TextBox>
                 </View>
               </View>
@@ -80,7 +131,9 @@ const ContentBox: React.FC<Props> = (props) => {
               >
                 <IconContainer>{heartIcon(30)}</IconContainer>
                 <View style={{ position: "absolute" }}>
-                  <Text style={{ fontSize: 12, color: "pink" }}>{props.rate}</Text>
+                  <Text style={{ fontSize: 12, color: "pink" }}>
+                    {props.rate}
+                  </Text>
                 </View>
               </View>
             </Pressable>
@@ -110,7 +163,9 @@ const ContentBox: React.FC<Props> = (props) => {
               >
                 <IconContainer>{fullHeartIcon(30)}</IconContainer>
                 <View style={{ position: "absolute" }}>
-                  <Text style={{ fontSize: 12, color: "black" }}>{props.rate}</Text>
+                  <Text style={{ fontSize: 12, color: "black" }}>
+                    {props.rate}
+                  </Text>
                 </View>
               </View>
             </Pressable>
