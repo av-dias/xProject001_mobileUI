@@ -1,69 +1,65 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import React from "react";
 import InputBox from "../InputBox";
-import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { iconsfilter } from "../../constants/icons";
 import ExpansionBar from "../expansionBar";
+import color from "../../constants/color";
 
-type Props = {
-  showIconFilter: boolean;
-  setShowIconFilter: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const FilterBar: React.FC<Props> = (props) => {
+const FilterBar = () => {
   return (
     <View
       style={{
-        width: "100%",
-        height: 60,
-        backgroundColor: "gray",
-        borderRadius: 20,
-        flexDirection: "row",
-        padding: 10,
-        gap: 10,
+        height: 90,
+        gap: 15,
       }}
     >
-      {!props.showIconFilter ? (
-        <>
-          <InputBox
-            placeholder="Search..."
-            icon={<AntDesign name="search1" size={24} color="black" />}
-          />
-          <InputBox
-            placeholder="Where..."
-            icon={<Feather name="map-pin" size={24} color="black" />}
-          />
-        </>
-      ) : (
-        <View style={{ flex: 1, borderRadius: 20, overflow: "hidden" }}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            style={{ borderRadius: 20, overflow: "hidden" }}
-            contentContainerStyle={{
-              gap: 20,
-              borderRadius: 20,
-              overflow: "hidden",
-            }}
-          >
-            {iconsfilter.map((filter) => {
-              return (
-                <ExpansionBar key={filter.name} onPress={() => {}}>
-                  {filter.icon}
-                </ExpansionBar>
-              );
-            })}
-          </ScrollView>
-        </View>
-      )}
-      <ExpansionBar
-        onPress={() => {
-          props.setShowIconFilter(!props.showIconFilter);
-          console.log("chaning state to:", props.showIconFilter);
+      <View
+        style={{
+          width: "100%",
+          height: 40,
+          borderRadius: 5,
+          flexDirection: "row",
+          gap: 10,
         }}
       >
-        <Entypo name="sound-mix" size={24} color="black" />
-      </ExpansionBar>
+        <InputBox
+          placeholder="Search..."
+          icon={
+            <AntDesign
+              name="search1"
+              size={20}
+              color={color.light.iconPrimary}
+            />
+          }
+        />
+        <InputBox
+          placeholder="Where..."
+          icon={
+            <Feather name="map-pin" size={20} color={color.light.iconPrimary} />
+          }
+        />
+      </View>
+      <View style={{ flex: 1, borderRadius: 5, overflow: "hidden" }}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ borderRadius: 5, overflow: "hidden" }}
+          contentContainerStyle={{
+            gap: 10,
+            borderRadius: 10,
+            overflow: "hidden",
+          }}
+        >
+          {iconsfilter.map((filter) => (
+            <ExpansionBar key={filter.name} onPress={() => {}}>
+              <Text style={{ color: color.light.textSecundary }}>
+                {filter.label}
+              </Text>
+            </ExpansionBar>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };

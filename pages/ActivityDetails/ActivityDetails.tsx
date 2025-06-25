@@ -182,7 +182,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                   paddingVertical: 5,
                   marginBottom: 5,
                   flexDirection: "row",
-                  backgroundColor: "lightgray",
+                  backgroundColor: color.light.glass,
                   justifyContent: "space-evenly",
                   alignItems: "center",
                 }}
@@ -240,7 +240,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
               <View
                 style={{
                   height: 70,
-                  backgroundColor: "lightgray",
+                  backgroundColor: color.light.glass,
                   borderRadius: 10,
                   justifyContent: "center",
                   alignItems: "center",
@@ -270,7 +270,7 @@ const ActivityDetails: React.FC<PropsWithChildren> = (props) => {
                           width: 60,
                           height: 60,
                           borderRadius: 10,
-                          backgroundColor: "gray",
+                          backgroundColor: color.light.glass,
                           alignItems: "center",
                           justifyContent: "center",
                         }}

@@ -50,7 +50,11 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
           <View style={{ flex: 1, gap: 20 }}>
             <View style={{ padding: 20, alignItems: "center" }}>
               <View
-                style={{ width: "50%", height: 150, backgroundColor: "gray" }}
+                style={{
+                  width: "50%",
+                  height: 150,
+                  backgroundColor: color.light.glass,
+                }}
               ></View>
             </View>
             <View style={{ height: 50 }}>
@@ -69,7 +73,7 @@ const LandingPage: React.FC<PropsWithChildren> = ({ navigation }) => {
                 style={{
                   width: "100%",
                   height: 400,
-                  backgroundColor: "gray",
+                  backgroundColor: color.light.glass,
                   justifyContent: "center",
                   gap: 20,
                 }}

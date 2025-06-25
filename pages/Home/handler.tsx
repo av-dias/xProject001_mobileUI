@@ -2,28 +2,30 @@ import { View } from "react-native";
 import { ListRenderItemInfo } from "react-native";
 import { ActivityType } from "../../models/models";
 import ContentBox from "../../components/contentBox";
-import storage from "../../storage/storageKeys";
 import { getDayOfWeek } from "../../constants/calendar";
-import {
-  addItemToFavoriteFolder,
-  removeFavoriteToFolder,
-} from "../../storage/favoriteStorage";
 import { activeApi } from "../../service/serviceSelector";
-import { useContext } from "react";
-import { AppContext } from "../../contexts/appContext";
 import { DEFAULT_FAVORITE_FOLDER } from "../../constants/enums";
 
 const getTimeFromTimeTable = (time: string) => {
   let timetableJSON = JSON.parse(time);
-  let todayDay = new Date().getDay();
-  if (timetableJSON[getDayOfWeek(todayDay)].start == "Closed")
-    return timetableJSON[getDayOfWeek(todayDay)].start;
-  else
-    return (
-      timetableJSON[getDayOfWeek(todayDay)].start +
-      " - " +
-      timetableJSON[getDayOfWeek(todayDay)].end
-    );
+  let date = new Date();
+  let todayDay = date.getDay();
+  let todayHour = date.getHours();
+  const timeTable = timetableJSON[getDayOfWeek(todayDay)];
+
+  if (timeTable.start == "Closed") {
+    return timeTable.start;
+  }
+
+  const startHour = Number(timeTable.start.split(":")[0]);
+  const endHour = Number(timeTable.end.split(":")[0]);
+
+  if (todayHour < startHour)
+    return `Opens in less than ${startHour - todayHour}`;
+  else if (todayHour > endHour) return "Closed";
+  else if (endHour - todayHour <= 2)
+    return `Closing in ${endHour - todayHour}h`;
+  else return null;
 };
 
 const renderActivityItem = (

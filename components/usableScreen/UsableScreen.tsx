@@ -7,7 +7,19 @@ type PropsWithChildren = {
 };
 
 const UsableScreen: React.FC<PropsWithChildren> = (props) => {
-  return <View style={{ flex: 1, padding: 10, paddingBottom: 0, gap: 10, backgroundColor: color.light.background }}>{props.children}</View>;
+  return (
+    <View
+      style={{
+        flex: 1,
+        padding: 15,
+        paddingBottom: 0,
+        gap: 10,
+        backgroundColor: color.light.background,
+      }}
+    >
+      {props.children}
+    </View>
+  );
 };
 
 export default UsableScreen;

@@ -26,8 +26,8 @@ export const activityListHandlerMock: ActivityType[] = [
     price: 10,
     timetable: `{
       "Mon": { "start": "11:00", "end": "19:00" },
-      "Tue": { "start": "11:00", "end": "19:00" },
-      "Wed": { "start": "11:00", "end": "19:00" },
+      "Tue": { "start": "10:00", "end": "18:00" },
+      "Wed": { "start": "10:00", "end": "18:00" },
       "Thu": { "start": "11:00", "end": "19:00" },
       "Fri": { "start": "11:00", "end": "19:00" },
       "Sat": { "start": "09:00", "end": "16:00" },
@@ -48,9 +48,9 @@ export const activityListHandlerMock: ActivityType[] = [
     price: 12,
     timetable: `{
       "Mon": { "start": "10:00", "end": "20:00" },
-      "Tue": { "start": "10:00", "end": "20:00" },
-      "Wed": { "start": "10:00", "end": "20:00" },
-      "Thu": { "start": "10:00", "end": "20:00" },
+      "Tue": { "start": "11:00", "end": "21:00" },
+      "Wed": { "start": "11:00", "end": "21:00" },
+      "Thu": { "start": "11:00", "end": "21:00" },
       "Fri": { "start": "10:00", "end": "20:00" },
       "Sat": { "start": "10:00", "end": "18:00" },
       "Sun": { "start": "10:00", "end": "18:00" }
@@ -70,9 +70,9 @@ export const activityListHandlerMock: ActivityType[] = [
     price: 20,
     timetable: `{
       "Mon": { "start": "10:00", "end": "14:00" },
-      "Tue": { "start": "10:00", "end": "14:00" },
-      "Wed": { "start": "10:00", "end": "12:00" },
-      "Thu": { "start": "10:00", "end": "12:00" },
+      "Tue": { "start": "12:00", "end": "14:00" },
+      "Wed": { "start": "12:00", "end": "14:00" },
+      "Thu": { "start": "12:00", "end": "14:00" },
       "Fri": { "start": "10:00", "end": "18:00" },
       "Sat": { "start": "10:00", "end": "18:00" },
       "Sun": { "start": "10:00", "end": "18:00" }
@@ -92,10 +92,10 @@ export const activityListHandlerMock: ActivityType[] = [
     price: 10,
     timetable: `{
       "Mon": { "start": "Closed", "end": "Closed" },
-      "Tue": { "start": "10:00", "end": "20:00" },
-      "Wed": { "start": "10:00", "end": "20:00" },
-      "Thu": { "start": "10:00", "end": "20:00" },
-      "Fri": { "start": "10:00", "end": "20:00" },
+      "Tue": { "start": "Closed", "end": "Closed" },
+      "Wed": { "start": "Closed", "end": "Closed" },
+      "Thu": { "start": "Closed", "end": "Closed" },
+      "Fri": { "start": "Closed", "end": "Closed" },
       "Sat": { "start": "10:00", "end": "20:00" },
       "Sun": { "start": "10:00", "end": "20:00" }
     }`,

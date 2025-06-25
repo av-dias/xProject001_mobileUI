@@ -68,7 +68,7 @@ export const FavoritesBottomSheet: React.FC<Props> = ({
               <View
                 style={{
                   height: 80,
-                  backgroundColor: "gray",
+                  backgroundColor: color.light.glass,
                   borderRadius: 10,
                   justifyContent: "center",
                   padding: 10,
@@ -129,7 +129,7 @@ export const FavoritesBottomSheet: React.FC<Props> = ({
             <View
               style={{
                 height: 80,
-                backgroundColor: "gray",
+                backgroundColor: color.light.glass,
                 borderRadius: 10,
                 justifyContent: "center",
                 padding: 10,

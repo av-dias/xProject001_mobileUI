@@ -2,6 +2,7 @@ import { View, TextInput } from "react-native";
 import { ReactNode } from "react";
 
 import IconContainer from "../iconContainer";
+import color from "../../constants/color";
 
 type PropsWithChildren = {
   icon: ReactNode;
@@ -14,12 +15,12 @@ const InputBox: React.FC<PropsWithChildren> = (props) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "lightgray",
-        borderRadius: 15,
+        backgroundColor: color.light.glass,
+        borderRadius: 10,
         flexDirection: "row",
       }}
     >
-      <View style={{ paddingHorizontal: 10, justifyContent: "center" }}>
+      <View style={{ paddingHorizontal: 20, justifyContent: "center" }}>
         <IconContainer>{props.icon}</IconContainer>
       </View>
       <TextInput

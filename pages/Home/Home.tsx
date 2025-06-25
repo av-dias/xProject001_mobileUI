@@ -123,10 +123,7 @@ const Home: React.FC<PropsWithChildren> = ({ navigation }) => {
         )}
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={{ flex: 1 }}>
-            <FilterBar
-              setShowIconFilter={setShowIconFilter}
-              showIconFilter={showIconFilter}
-            ></FilterBar>
+            <FilterBar />
           </View>
         </View>
         <FlatList

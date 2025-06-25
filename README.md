@@ -30,3 +30,5 @@
   - Centralized base axios instance
 - 0.05
   - Refactored favorite asyncStorage logic to the Mock Api Service
+- 0.06
+  - UI minor polish and cleanup

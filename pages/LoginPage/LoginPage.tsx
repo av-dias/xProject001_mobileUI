@@ -1,16 +1,12 @@
-import { View, Text } from "react-native";
-import { ReactNode } from "react";
-import {
-  SafeAreaProvider,
-  SafeAreaView,
-  initialWindowMetrics,
-} from "react-native-safe-area-context";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import UsableScreen from "../../components/usableScreen";
 import CustomPressable from "../../components/customPressable";
 
 import { saveToStorage } from "../../storage/baseStorage";
 import storage from "../../storage/storageKeys";
+import color from "../../constants/color";
 
 type PropsWithChildren = {
   navigation: any;
@@ -31,7 +27,7 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
             style={{
               width: 200,
               height: 200,
-              backgroundColor: "gray",
+              backgroundColor: color.light.glass,
               alignSelf: "center",
               marginBottom: 300,
             }}
@@ -42,7 +38,7 @@ const LoginPage: React.FC<PropsWithChildren> = ({ navigation }) => {
                 onPress={() => {
                   alert("Not yet implemented!");
                 }}
-                color="gray"
+                color={color.light.glass}
                 text={"Sign Up"}
               ></CustomPressable>
             </View>

@@ -14,22 +14,36 @@ type PropsWithChildren = {
 
 const ReviewBox: React.FC<PropsWithChildren> = (props) => {
   return (
-    <View style={{ borderRadius: 10, backgroundColor: "lightgray", padding: 5 }}>
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+    <View
+      style={{
+        borderRadius: 10,
+        backgroundColor: color.light.glass,
+        padding: 5,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <View style={{ alignItems: "center", flexDirection: "row", gap: 10 }}>
           <View
             style={{
               width: 30,
               height: 30,
               borderRadius: 10,
-              backgroundColor: "gray",
+              backgroundColor: color.light.glass,
               alignItems: "center",
               justifyContent: "center",
             }}
           >
             <Text style={{ fontSize: 15 }}>X</Text>
           </View>
-          <Text style={{ fontSize: 15, fontWeight: "bold" }}>{props.title}</Text>
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+            {props.title}
+          </Text>
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <IconContainer>

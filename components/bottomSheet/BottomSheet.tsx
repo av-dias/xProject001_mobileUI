@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { View, Text, Pressable, Dimensions, StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
@@ -38,7 +42,13 @@ const BottomSheet: React.FC<Props> = (props) => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View style={[style.bottomSheetContainer, rBottomSheetStyle, { backgroundColor: props.color || "white" }]}>
+      <Animated.View
+        style={[
+          style.bottomSheetContainer,
+          rBottomSheetStyle,
+          { backgroundColor: props.color || "white" },
+        ]}
+      >
         <View style={style.line} />
         {props.children}
       </Animated.View>
@@ -59,7 +69,7 @@ const style = StyleSheet.create({
     width: 100,
     height: 5,
     marginVertical: 10,
-    backgroundColor: "gray",
+    backgroundColor: color.light.glass,
     justifyContent: "center",
     alignSelf: "center",
     borderRadius: 20,

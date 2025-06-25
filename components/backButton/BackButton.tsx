@@ -15,7 +15,7 @@ const BackButton: React.FC<Props> = (props) => {
       style={{
         position: props.isAbsolute == false ? "relative" : "absolute",
         zIndex: 1,
-        padding: 15,
+        padding: 20,
         borderRadius: 20,
       }}
       onPress={() => {

@@ -1,6 +1,4 @@
 import { View, Image, Text, Pressable } from "react-native";
-import { ReactNode } from "react";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 
 import ImageContainer from "../imageContainer";
 import TextBox from "../textBox";
@@ -15,7 +13,7 @@ type Props = {
   title: string;
   location?: string;
   price?: number;
-  timetable?: string;
+  timetable?: string | null;
   rate: number;
   imageSrc: ImageSourcePropType;
   navigation: any;
@@ -30,7 +28,7 @@ const ContentBox: React.FC<Props> = (props) => {
       style={{
         flex: 1,
         width: "100%",
-        backgroundColor: "gray",
+        backgroundColor: color.light.glass,
         borderRadius: 20,
       }}
     >
@@ -61,25 +59,25 @@ const ContentBox: React.FC<Props> = (props) => {
                   paddingHorizontal: 10,
                 }}
               >
-                <TextBox text={props.title}></TextBox>
+                <TextBox text={props.title} fontWeight="bold"></TextBox>
               </View>
-              {props.timetable && (
-                <View
-                  style={{
-                    backgroundColor: color.light.grayBlur,
-                    borderRadius: 20,
-                    paddingVertical: 5,
-                    paddingHorizontal: 10,
-                  }}
-                >
-                  <TextBox text={props.timetable}></TextBox>
-                </View>
-              )}
             </View>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View style={{ flexDirection: "row", gap: 10 }}>
+                {props.timetable && (
+                  <View
+                    style={{
+                      backgroundColor: color.light.grayBlur,
+                      borderRadius: 20,
+                      paddingVertical: 5,
+                      paddingHorizontal: 10,
+                    }}
+                  >
+                    <TextBox text={props.timetable} fontWeight="bold"></TextBox>
+                  </View>
+                )}
                 {props.location && (
                   <View
                     style={{

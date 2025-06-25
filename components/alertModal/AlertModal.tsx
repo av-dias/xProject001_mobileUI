@@ -37,7 +37,7 @@ export const AlertModal = ({
           style={{
             height: 200,
             width: "80%",
-            backgroundColor: "gray",
+            backgroundColor: color.light.glass,
             borderRadius: 20,
           }}
         >
